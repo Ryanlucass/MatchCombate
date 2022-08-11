@@ -1,4 +1,4 @@
-using Data.Context;
+using Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
-namespace SaleApi
+namespace MatchCombate
 {
     public class Startup
     {
@@ -21,15 +21,13 @@ namespace SaleApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string mySqlConnection = Configuration.GetConnectionString("DefaultConnection");
-
-            services.AddDbContextPool<MyContext>(x =>
-                     x.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
-
             services.AddControllers();
+
+            services.AddDbContext<AplicationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SaleApi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MatchCombate", Version = "v1" });
             });
         }
 
@@ -40,7 +38,7 @@ namespace SaleApi
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SaleApi v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MatchCombate v1"));
             }
 
             app.UseHttpsRedirection();

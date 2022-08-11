@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    internal interface ISalesRepository
+    internal interface ILutadorRepository
     {
         public Lutador CreateLutador();
         public List<Lutador> GetLutadores();

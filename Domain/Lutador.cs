@@ -9,11 +9,13 @@ namespace Domain
     public class Lutador
     {
         public int Id { get; set; }
+        public DateTime Criadoem { get; set; }
         public string Nome { get; set; }
         public string Apelido { get; set; }
-        public string ArteMarcial { get; set; }
         public string Cpf { get; set; }
-        public string UrlFoto { get; set; }
+        public int Categoria { get; set; }
         public int? GrauArteMarcial { get; set; }
+        public string UrlFoto { get; set; } = null;
+        public string ArteMarcial { get; set; } = null;
     }
 }

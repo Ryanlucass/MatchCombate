@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Data.Repository
 {
-    public class SalesRepository : ISalesRepository
+    public class LutadorRepository : ILutadorRepository
     {
         public Lutador CreateLutador()
         {
