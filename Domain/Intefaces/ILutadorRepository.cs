@@ -1,13 +1,13 @@
-﻿using Domain;
+﻿using Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
+namespace Data.Interfaces
 {
-    internal interface ILutadorRepository
+    public interface ILutadorRepository
     {
         public Lutador CreateLutador();
         public List<Lutador> GetLutadores();

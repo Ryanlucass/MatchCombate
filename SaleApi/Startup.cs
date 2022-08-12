@@ -1,4 +1,8 @@
 using Data;
+using Data.DbCotext;
+using Data.Interfaces;
+using Data.Repository;
+using Domain.Intefaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Service;
 
 namespace MatchCombate
 {
@@ -23,7 +28,11 @@ namespace MatchCombate
         {
             services.AddControllers();
 
+            ///Injection Dependency
+            services.AddTransient<IMatchLutas, MatchLutas>();
+            services.AddTransient<LutadorRepository, LutadorRepository>();
             services.AddDbContext<AplicationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
 
             services.AddSwaggerGen(c =>
             {

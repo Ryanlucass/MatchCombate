@@ -1,7 +1,8 @@
 ﻿using Domain;
+using Domain.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace Data
+namespace Data.DbCotext
 {
     public class AplicationContext : DbContext
     {
@@ -10,7 +11,7 @@ namespace Data
         public DbSet<Luta> Lutas { get; set; }
         public AplicationContext(DbContextOptions<AplicationContext> options) : base(options)
         {
-           
+
         }
     }
 }
