@@ -42,13 +42,14 @@ namespace Domain.Model
             ValidationExeption.When(string.IsNullOrEmpty(nickname),"Informe um apelido ou abreviação para o lutador");
             ValidationExeption.When(string.IsNullOrEmpty(martialarts), "Informe uma Arte Marcial");
             ValidationExeption.When(Regex.IsMatch(cpf, @"^\d{ 3}\d{ 3}\d{ 3}\d{2}$"), "Cpf informado não é válido");
-            ValidationExeption.When(weightclass >= 0, "Informe o peso do atelta para informamos sua categoria");
+            ValidationExeption.When(weightclass <= 0, "Informe o peso do atelta para informamos sua categoria");
 
             Name = name;
             NickName = nickname;
             Martialarts = martialarts;  
             WeightClass = weightclass;
             Cpf = cpf;
+            CreateAt = DateTime.Now;
         }
     }
 }
