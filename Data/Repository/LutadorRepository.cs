@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Data.Repository
 {
-    public class LutadorRepository : ILutadorRepository
+    public class LutadorRepository : IRepository<Fighter>
     {
 
         public LutadorRepository(AplicationContext context)
@@ -17,28 +17,56 @@ namespace Data.Repository
             _db = context;
         }
 
-        private AplicationContext _db { get; set; }
+        protected readonly AplicationContext _db;
 
+        public async Task<Fighter> Insert(Fighter item)
+        {
+            try
+            {
+                Fighter lutador = new()
+                {
+                    Nome = item.Nome,
+                    Apelido = item.Apelido,
+                    ArteMarcial = item.ArteMarcial,
+                    Categoria = item.Categoria,
+                    Cpf = item.Cpf,
+                    Criadoem = DateTime.Now,
+                    GrauArtemarcial = item.GrauArtemarcial ?? null
+                };
 
+                _db.Lutadores.Add(lutador);
+                
+                await _db.SaveChangesAsync();
+            }
 
-        public Lutador CreateLutador()
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.ToString());
+            }
+
+            return item;
+        }
+
+        public Task<Fighter> Update(Fighter item)
         {
             throw new NotImplementedException();
         }
 
-        public bool DeleteLutador()
+        public Task<bool> Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public List<Lutador> GetLutadores()
+        public Task<Fighter> select(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Lutador UpdateLutador()
+        public Task<List<Fighter>> Select()
         {
             throw new NotImplementedException();
         }
     }
 }
+ 

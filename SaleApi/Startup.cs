@@ -1,6 +1,4 @@
-using Data;
 using Data.DbCotext;
-using Data.Interfaces;
 using Data.Repository;
 using Domain.Intefaces;
 using Microsoft.AspNetCore.Builder;
@@ -31,6 +29,7 @@ namespace MatchCombate
             ///Injection Dependency
             services.AddTransient<IMatchLutas, MatchLutas>();
             services.AddTransient<LutadorRepository, LutadorRepository>();
+            services.AddTransient<JuizRepository, JuizRepository>();
             services.AddDbContext<AplicationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 

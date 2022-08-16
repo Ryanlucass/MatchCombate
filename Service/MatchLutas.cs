@@ -24,9 +24,16 @@ namespace Service
             throw new NotImplementedException();
         }
 
-        public bool MatchFight(List<Lutador> lutadores)
+        public bool MatchFight(List<Fighter> lutadores)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<Fighter> CreateLutador(Fighter item)
+        {
+            var lutador = await Repository.Insert(item);
+
+            return lutador;
         }
     }
 }

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Dtos;
 using Domain.Intefaces;
+using Domain.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,10 +21,19 @@ namespace MatchCombate.Controllers
             MatchLutas = matchLutas; 
         }
 
-        [HttpGet]
-        public IActionResult GetLutadores()
+        [HttpPost]
+        public IActionResult CreateLutador([FromBody] LutadorDto lutador)
         {
-            MatchLutas.CancelFight();
+            Fighter fighter = new()
+            {
+                Nome = lutador.Nome,
+                Apelido = lutador.Apelido,
+                ArteMarcial = lutador.ArteMarcial,
+                Cpf = lutador.Cpf,
+                Categoria = lutador.Categoria
+            };
+
+            MatchLutas.CreateLutador(fighter);
 
             return Ok();
         }

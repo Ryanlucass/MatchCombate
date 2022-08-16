@@ -9,8 +9,8 @@ namespace Domain.Intefaces
 {
     public interface IMatchLutas
     {
-        public bool MatchFight(List<Lutador> lutadores);
+        public bool MatchFight(List<Fighter> lutadores);
         public bool CancelFight();
-        
+        public Task<Fighter> CreateLutador(Fighter lutador);
     }
 }
