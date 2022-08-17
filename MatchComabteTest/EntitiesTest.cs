@@ -10,9 +10,9 @@ namespace MatchComabteTest
         [TestMethod]
         public void ValidandoIterfaceLutador()
         {
-            string nome = "Lucas Ryan";
             string apelido = "Calivem";
             string artemarcial = "Bjj";
+            string nome = "Lucas Ryan";
             string cpf = "61711369306";
             int peso = 80;
 
@@ -38,7 +38,20 @@ namespace MatchComabteTest
             Assert.IsTrue(luta.DateHours == dataluta);
             Assert.IsTrue(luta.Rounds == rounds);
             Assert.IsTrue(luta.StatusFight == status);
-   
+        }
+        [TestMethod]
+        public void ValidandoInterfacejuiz()
+        {
+            string nome = "Lucas Ryan";
+            string cpf = "61711369306";
+            string telefone = "85996614167";
+
+            Judge Juiz = new(telefone,nome,cpf);
+            Assert.IsTrue(Juiz.Name == nome);
+            Assert.IsTrue(Juiz.Cpf == cpf);
+            Assert.IsTrue(Juiz.Phone == telefone);
+            Assert.IsTrue(Juiz.CreatedAt != DateTime.MinValue);
+            
         }
     }
 }
