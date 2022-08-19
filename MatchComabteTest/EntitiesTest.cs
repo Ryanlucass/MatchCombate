@@ -29,15 +29,21 @@ namespace MatchComabteTest
         [TestMethod]
         public void ValidandoIterfaceLuta()
         {
-            int tempo = 5;
+            //string name01, string name02, int rounds, DateTime datehours, string statusfight
+            string plutador = "Reinado";
+            string slutador = "doidim";
             DateTime dataluta = DateTime.Now;
             int rounds = 3;
-            string status = "aberto";
+            string status = "aberta".ToUpper();
 
-            Fight luta = new(dataluta,tempo,rounds,status);
+            Combat luta = new(plutador,slutador,rounds,dataluta,status);
             Assert.IsTrue(luta.DateHours == dataluta);
             Assert.IsTrue(luta.Rounds == rounds);
             Assert.IsTrue(luta.StatusFight == status);
+            Assert.IsTrue(luta.FistNickName == plutador);
+            Assert.IsTrue(luta.SecondNickName == slutador);
+            Assert.IsTrue(luta.StatusFight == status);
+
         }
         [TestMethod]
         public void ValidandoInterfacejuiz()

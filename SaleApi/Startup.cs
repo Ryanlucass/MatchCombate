@@ -29,8 +29,8 @@ namespace MatchCombate
             ///Injection Dependency
             services.AddTransient<IMatchLutas, MatchLutas>();
             services.AddTransient<LutadorRepository, LutadorRepository>();
-            services.AddTransient<JuizRepository, JuizRepository>();
-            services.AddDbContext<AplicationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddTransient<JudgeRepository, JudgeRepository>();
+            services.AddDbContext<MatchCombateContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 
             services.AddSwaggerGen(c =>

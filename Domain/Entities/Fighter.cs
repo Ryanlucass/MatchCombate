@@ -18,8 +18,7 @@ namespace Domain.Model
         public string Martialarts { get; private set; }
         public string Cpf { get; private set; }
         public int WeightClass { get; set; }
-        //relacionamentos
-        //public List<Fight> Fights { get; set; }
+
 
         //Create a fighter
         public Fighter(string name, string nickname, string martialarts, string cpf, int weightclass)
