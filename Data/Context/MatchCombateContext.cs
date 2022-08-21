@@ -8,7 +8,7 @@ namespace Data.DbCotext
     {
         public DbSet<Fighter> Fighters { get; set; }
         public DbSet<Judge> Judges { get; set; }
-        public DbSet<Fight> Fights { get; set; }
+        public DbSet<Combat> Combats { get; set; }
        
         public MatchCombateContext(DbContextOptions<MatchCombateContext> options) : base(options)
         {}
