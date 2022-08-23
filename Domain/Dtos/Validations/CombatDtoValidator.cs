@@ -9,6 +9,7 @@ namespace Domain.Dtos.Validations
 {
     public class CombatDtoValidator : AbstractValidator<CombatDto>
     {
+        //classe de validação de dados 
         public CombatDtoValidator()
         {
             //apelidoFirst
@@ -18,10 +19,23 @@ namespace Domain.Dtos.Validations
                 .MaximumLength(20)
                 .MinimumLength(4);
 
-                //apelidoSecond
-                //rounds
-                //status_luta
-                //dataluta
+            //apelidoSecond
+            RuleFor(x => x.SecondNickName)
+                .NotEmpty()
+                .NotNull()
+                .MaximumLength(20)
+                .MinimumLength(4);
+
+            //rounds
+            RuleFor(x => x.Rounds)
+               .NotEqual(0)
+               .NotNull();
+            
+            //status_luta
+            //validação criado pela regra de negócio 
+            
+            //dataluta
+            //validação criado pela regra de negócio
         }
     }
 }
