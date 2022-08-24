@@ -9,6 +9,5 @@ namespace Domain.Dtos
         public string Phone { get; private set; }
         public string Name { get; private set; }
         public string Cpf { get; private set; }
-
     }
 }

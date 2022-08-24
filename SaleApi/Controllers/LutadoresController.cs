@@ -15,25 +15,15 @@ namespace MatchCombate.Controllers
     [ApiController]
     public class LutadoresController : ControllerBase
     {
-        public IMatchLutas MatchLutas { get; set; }
-        public LutadoresController(IMatchLutas matchLutas)
+        public IMatchCombat MatchLutas { get; set; }
+        public LutadoresController(IMatchCombat matchLutas)
         {
             MatchLutas = matchLutas; 
         }
 
         [HttpPost]
-        public IActionResult CreateLutador([FromBody] LutadorDto lutador)
+        public IActionResult CreateLutador()
         {
-            Fighter fighter = new()
-            {
-                Nome = lutador.Nome,
-                Apelido = lutador.Apelido,
-                ArteMarcial = lutador.ArteMarcial,
-                Cpf = lutador.Cpf,
-                Categoria = lutador.Categoria
-            };
-
-            MatchLutas.CreateLutador(fighter);
 
             return Ok();
         }
