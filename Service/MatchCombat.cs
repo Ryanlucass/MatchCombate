@@ -1,29 +1,26 @@
-﻿using Domain.Intefaces;
-using Domain.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using Data.Interfaces;
-using Data.Repository;
-using Domain.Results;
 using Domain.Dtos;
-using AutoMapper;
 using Domain.Dtos.Validations;
+using Domain.Intefaces;
+using Domain.Model;
+using Domain.Results;
+using System;
+using System.Threading.Tasks;
 
 namespace Service
 {
     public class MatchCombat : IMatchCombat
     {
         private readonly ICombatRepository _combatRepository;
-        private readonly IMapper _mapper;  
+        private readonly IMapper _mapper;
 
         public MatchCombat(ICombatRepository combatRepository, IMapper mapper)
         {
             _combatRepository = combatRepository;
             _mapper = mapper;
         }
+
 
         public async Task<ResultService<CombatDto>> CreateAsyncCombat(CombatDto combatDto)
         {
@@ -32,24 +29,42 @@ namespace Service
 
             var result = new CombatDtoValidator().Validate(combatDto);
             if (!result.IsValid)
-                return ResultService.RequestError<CombatDto>("Problema na validação",result);
+                return ResultService.RequestError<CombatDto>("Problema na validação", result);
 
-            var combat = _mapper.Map<Combat>(combatDto);
-            var data = await _combatRepository.CreateAsync(combat);
+            var combatEntities = _mapper.Map<Combat>(combatDto);
+            var data = await _combatRepository.CreateAsync(combatEntities);
 
-            //return ResultService.Ok<CombatDto>(_mapper.Map<CombatDto>(data)); 
-            ResultService<CombatDto> resultService = new();
-           return resultService.Ok<(_mapper.Map<CombatDto>(data));
+            return (ResultService<CombatDto>)ResultService.Ok(_mapper.Map<CombatDto>(data));
         }
 
-        public Task<bool> DeleteAsyncCombat(int id)
+        public async Task<ResultService<CombatDto>> DeleteAsyncCombat(int id)
         {
-            throw new NotImplementedException();
+            var resultId = await _combatRepository.GetByIdAsync(id);
+
+            if (resultId != null)
+                return ResultService<CombatDto>.Fail<CombatDto>("Id não existe");
+
+            var resultDelete = await _combatRepository.DeleteAsync(id);
+            
+            if(resultId != null)
+                return ResultService<CombatDto>.Fail<CombatDto>("Erro ao deletar combate");
+
+            return (ResultService<CombatDto>)ResultService.Ok<CombatDto>(true);
         }
 
-        public Task<ResultService<CombatDto>> UpdateAsyncCombat(CombatDto combat)
+        public async Task<ResultService<CombatDto>> UpdateAsyncCombat(CombatDto combatDto)
         {
-            throw new NotImplementedException();
+            if (combatDto == null)
+                return ResultService.Fail<CombatDto>("Objeto está nulo");
+
+            var result = new CombatDtoValidator().Validate(combatDto);
+            if (!result.IsValid)
+                return ResultService.RequestError<CombatDto>("Problema na validação", result);
+
+            var combatEntities = _mapper.Map<Combat>(combatDto);
+            var data = await _combatRepository.UpdateAsync(combatEntities);
+
+            return (ResultService<CombatDto>)ResultService.Ok(_mapper.Map<CombatDto>(data));
         }
     }
 }

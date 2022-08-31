@@ -13,6 +13,6 @@ namespace Domain.Intefaces
     {
        Task<ResultService<CombatDto>> CreateAsyncCombat(CombatDto combat);
        Task<ResultService<CombatDto>> UpdateAsyncCombat(CombatDto combat);
-       Task<bool> DeleteAsyncCombat(int id);
+       Task<ResultService<CombatDto>> DeleteAsyncCombat(int id);
     }
 }

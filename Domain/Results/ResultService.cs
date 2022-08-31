@@ -38,6 +38,7 @@ namespace Domain.Results
         public static ResultService<T> Fail<T>(string message) => new ResultService<T> { IsSucess = false, Message = message};
 
         public static ResultService Ok(string message) => new ResultService { IsSucess = true, Message = message };
+        public static ResultService Ok<T>(bool result) => new ResultService { IsSucess = true };
         public static ResultService Ok<T>(T data) => new ResultService<T> { IsSucess = true, Data = data};
 
     }
