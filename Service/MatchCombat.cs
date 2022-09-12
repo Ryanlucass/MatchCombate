@@ -1,70 +1,79 @@
 ﻿using AutoMapper;
-using Data.Interfaces;
+using Data.Repository;
 using Domain.Dtos;
-using Domain.Dtos.Validations;
-using Domain.Intefaces;
+using Domain.Interfaces;
 using Domain.Model;
-using Domain.Results;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Service
 {
     public class MatchCombat : IMatchCombat
     {
-        private readonly ICombatRepository _combatRepository;
-        private readonly IMapper _mapper;
+        private readonly IFighterRepository _fighterRepository;
 
-        public MatchCombat(ICombatRepository combatRepository, IMapper mapper)
+        public MatchCombat(IFighterRepository repository)
         {
-            _combatRepository = combatRepository;
-            _mapper = mapper;
+            _fighterRepository = repository;
         }
 
-
-        public async Task<ResultService<CombatDto>> CreateAsyncCombat(CombatDto combatDto)
+        /// <summary>
+        /// Crear um lutador
+        /// </summary>
+        /// <param name="fighter"></param>
+        /// <returns></returns>
+        public async Task<FighterDto> CreateFighter(FighterDto fighter)
         {
-            if (combatDto == null)
-                return ResultService.Fail<CombatDto>("Objeto está nulo");
+            //Mapear recebimento para a classe
 
-            var result = new CombatDtoValidator().Validate(combatDto);
-            if (!result.IsValid)
-                return ResultService.RequestError<CombatDto>("Problema na validação", result);
+            Fighter primaryFigther = new()
+            {
+                Name = fighter.Name,
+                Cpf = fighter.Cpf,
+                NickName = fighter.NickName,
+                WeightClass = fighter.WeightClass,
+                CreateAt = DateTime.Now
+            };
 
-            var combatEntities = _mapper.Map<Combat>(combatDto);
-            var data = await _combatRepository.CreateAsync(combatEntities);
-
-            return (ResultService<CombatDto>)ResultService.Ok(_mapper.Map<CombatDto>(data));
-        }
-
-        public async Task<ResultService<CombatDto>> DeleteAsyncCombat(int id)
-        {
-            var resultId = await _combatRepository.GetByIdAsync(id);
-
-            if (resultId != null)
-                return ResultService<CombatDto>.Fail<CombatDto>("Id não existe");
-
-            var resultDelete = await _combatRepository.DeleteAsync(id);
+            var result = await _fighterRepository.CreateAsync(primaryFigther);
             
-            if(resultId != null)
-                return ResultService<CombatDto>.Fail<CombatDto>("Erro ao deletar combate");
+            return fighter;
 
-            return (ResultService<CombatDto>)ResultService.Ok<CombatDto>(true);
         }
+        /// <summary>
+        /// Retornar todos os lutadores
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<FighterDto>> SelectFighter( int? weightClass)
+        { 
+            var result = await _fighterRepository.GetFighteraAsync();
+ 
+            var listFighterDto = result.Select(x =>
+                new FighterDto()
+                {
+                    Cpf = x.Cpf,
+                    Name = x.Name,
+                    NickName = x.NickName,
+                    WeightClass = x.WeightClass
+                }).ToList();
 
-        public async Task<ResultService<CombatDto>> UpdateAsyncCombat(CombatDto combatDto)
-        {
-            if (combatDto == null)
-                return ResultService.Fail<CombatDto>("Objeto está nulo");
+            if(weightClass != null)
+            {
+                var listbyweight = result.Where(x => x.WeightClass == weightClass).Select(x =>
+                new FighterDto()
+                {
+                    Cpf = x.Cpf,
+                    Name = x.Name,
+                    NickName = x.NickName,
+                    WeightClass = x.WeightClass
+                }).ToList();
 
-            var result = new CombatDtoValidator().Validate(combatDto);
-            if (!result.IsValid)
-                return ResultService.RequestError<CombatDto>("Problema na validação", result);
+                listFighterDto = listbyweight;
+            }
 
-            var combatEntities = _mapper.Map<Combat>(combatDto);
-            var data = await _combatRepository.UpdateAsync(combatEntities);
-
-            return (ResultService<CombatDto>)ResultService.Ok(_mapper.Map<CombatDto>(data));
+            return listFighterDto;
         }
     }
 }

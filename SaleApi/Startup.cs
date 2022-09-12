@@ -1,7 +1,6 @@
 using Data.DbCotext;
-using Data.Interfaces;
 using Data.Repository;
-using Domain.Intefaces;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +30,7 @@ namespace MatchCombate
             ///Services 
             services.AddTransient<IMatchCombat, MatchCombat>();
             ///Repositorys
-            services.AddTransient<ICombatRepository, CombatRepository>();
+            services.AddTransient<IFighterRepository, FighterRepository>();
             
             services.AddDbContext<MatchCombateContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 

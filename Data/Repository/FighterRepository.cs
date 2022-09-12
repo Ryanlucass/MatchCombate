@@ -1,5 +1,5 @@
 ﻿using Data.DbCotext;
-using Data.Interfaces;
+using Domain.Interfaces;
 using Domain.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -47,7 +47,7 @@ namespace Data.Repository
 
         public async Task<Fighter> GetByIdAsync(int id) => await _db.Fighters.FirstOrDefaultAsync(x => x.Id == id);
 
-        public async Task<List<Fighter>> GetJudgeAsync() => await _db.Fighters.ToListAsync<Fighter>();
+        public async Task<List<Fighter>> GetFighteraAsync() => await _db.Fighters.ToListAsync<Fighter>();
  
         public async Task<Fighter> UpdateAsync(Fighter item)
         {

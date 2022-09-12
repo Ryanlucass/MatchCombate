@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Domain.Dtos;
-using Domain.Intefaces;
-using Domain.Model;
-using Microsoft.AspNetCore.Http;
+﻿using Domain.Dtos;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Service;
 
 namespace MatchCombate.Controllers
 {
@@ -22,10 +16,19 @@ namespace MatchCombate.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateLutador()
+        public IActionResult CreateLutador([FromBody] FighterDto fighter)
+        {
+            var result = MatchLutas.CreateFighter(fighter).Result;
+
+            return Ok(result);
+        }
+        [HttpGet]
+        public IActionResult GetFighters([FromQuery] int? weightClass)
         {
 
-            return Ok();
+            var result = MatchLutas.SelectFighter(weightClass).Result;
+
+            return Ok(result);
         }
     }
 }

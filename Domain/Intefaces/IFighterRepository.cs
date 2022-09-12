@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
-namespace Data.Interfaces
+namespace Domain.Interfaces
 {
     public interface IFighterRepository
     {
@@ -11,6 +11,6 @@ namespace Data.Interfaces
         Task<Fighter> UpdateAsync(Fighter item);
         Task<bool> DeleteAsync(int id);
         Task<Fighter> GetByIdAsync(int id);
-        Task<List<Fighter>> GetJudgeAsync();
+        Task<List<Fighter>> GetFighteraAsync();
     }
 }
