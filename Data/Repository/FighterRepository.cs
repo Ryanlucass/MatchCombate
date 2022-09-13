@@ -49,6 +49,12 @@ namespace Data.Repository
 
         public async Task<List<Fighter>> GetFighteraAsync() => await _db.Fighters.ToListAsync<Fighter>();
  
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item">fighter to update</param>
+        /// <returns>fighter was update</returns>
+        /// <exception cref="Exception"></exception>
         public async Task<Fighter> UpdateAsync(Fighter item)
         {
             try

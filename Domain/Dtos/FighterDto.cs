@@ -5,11 +5,12 @@ namespace Domain.Dtos
 {
     public class FighterDto
     {
+        public int? Id { get; set; }
         [Required]
         [MaxLength(30)]
         public string Name { get;  set; }
         [Required]
-        [MaxLength(20)]
+        [MaxLength(30)]
         [MinLength(4)]
         public string NickName { get;  set; }
         [Required]

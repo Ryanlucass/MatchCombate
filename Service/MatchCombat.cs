@@ -20,13 +20,13 @@ namespace Service
         }
 
         /// <summary>
-        /// Crear um lutador
+        /// Create a fighter
         /// </summary>
         /// <param name="fighter"></param>
         /// <returns></returns>
         public async Task<FighterDto> CreateFighter(FighterDto fighter)
         {
-            //Mapear recebimento para a classe
+            //TODO use mapper 
 
             Fighter primaryFigther = new()
             {
@@ -42,17 +42,21 @@ namespace Service
             return fighter;
 
         }
+
         /// <summary>
-        /// Retornar todos os lutadores
+        /// select every fithers or select by weight
         /// </summary>
         /// <returns></returns>
         public async Task<List<FighterDto>> SelectFighter( int? weightClass)
         { 
+
+            //TODO use mapper
             var result = await _fighterRepository.GetFighteraAsync();
  
             var listFighterDto = result.Select(x =>
                 new FighterDto()
                 {
+                    Id = x.Id,
                     Cpf = x.Cpf,
                     Name = x.Name,
                     NickName = x.NickName,
@@ -64,6 +68,7 @@ namespace Service
                 var listbyweight = result.Where(x => x.WeightClass == weightClass).Select(x =>
                 new FighterDto()
                 {
+                    Id = x.Id,
                     Cpf = x.Cpf,
                     Name = x.Name,
                     NickName = x.NickName,
@@ -74,6 +79,48 @@ namespace Service
             }
 
             return listFighterDto;
+        }
+
+        /// <summary>
+        /// Update a fighter
+        /// </summary>
+        /// <param name="fighterDto"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<FighterDto> UpdateFighter(FighterDto fighterDto)
+        {
+
+            Fighter primaryFigther = new()
+            {
+                Id = (int)fighterDto.Id,
+                Name = fighterDto.Name,
+                Cpf = fighterDto.Cpf,
+                NickName = fighterDto.NickName,
+                WeightClass = fighterDto.WeightClass,
+                CreateAt = null
+            };
+
+            var fighterUpdate = await _fighterRepository.UpdateAsync(primaryFigther);
+
+            if(fighterUpdate != null)
+            {
+                return fighterDto;
+            }
+            else { return null; }
+
+        }
+
+        /// <summary>
+        /// delete a fighter
+        /// </summary>
+        /// <param name="fighterDto"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<bool> DeleteFighter(int id)
+        {
+            var fighterDelete = await _fighterRepository.DeleteAsync(id);
+
+            return fighterDelete;
         }
     }
 }

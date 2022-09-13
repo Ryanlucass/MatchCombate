@@ -17,9 +17,9 @@ namespace Domain.Model
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("id")]
-        public int Id { get; private set; }
+        public int Id { get; set; }
         [Column("criado_em")]
-        public DateTime CreateAt { get; set; }
+        public DateTime? CreateAt { get; set; }
         [Column("nome")]
         [Required]
         [MaxLength(30)]
