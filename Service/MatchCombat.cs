@@ -38,7 +38,7 @@ namespace Service
             };
 
             var result = await _fighterRepository.CreateAsync(primaryFigther);
-            
+
             return fighter;
 
         }

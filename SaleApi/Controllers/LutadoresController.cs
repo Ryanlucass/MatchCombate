@@ -19,6 +19,8 @@ namespace MatchCombate.Controllers
         [Route("create")]
         public IActionResult CreateLutador([FromBody] FighterDto fighter)
         {
+            //TODO ajeitar retorno
+
             var result = MatchLutas.CreateFighter(fighter).Result;
 
             return Ok(result);
@@ -28,7 +30,6 @@ namespace MatchCombate.Controllers
         [Route("selectall")]
         public IActionResult GetFighters([FromQuery] int? weightClass)
         {
-
             var result = MatchLutas.SelectFighter(weightClass).Result;
 
             return Ok(result);

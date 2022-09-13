@@ -34,7 +34,7 @@ namespace Data.Repository
         {
             try
             {
-                var fighter = GetByIdAsync(id);
+                var fighter = await GetByIdAsync(id);
                 _db.Remove(fighter);
                 await _db.SaveChangesAsync();
                 return true;
