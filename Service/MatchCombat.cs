@@ -27,7 +27,6 @@ namespace Service
         public async Task<FighterDto> CreateFighter(FighterDto fighter)
         {
             //TODO use mapper 
-
             Fighter primaryFigther = new()
             {
                 Name = fighter.Name,
@@ -40,7 +39,6 @@ namespace Service
             var result = await _fighterRepository.CreateAsync(primaryFigther);
 
             return fighter;
-
         }
 
         /// <summary>
@@ -49,7 +47,6 @@ namespace Service
         /// <returns></returns>
         public async Task<List<FighterDto>> SelectFighter( int? weightClass)
         { 
-
             //TODO use mapper
             var result = await _fighterRepository.GetFighteraAsync();
  

@@ -1,7 +1,6 @@
 ﻿using Domain.Validation;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -16,29 +15,34 @@ namespace Domain.Model
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("id")]
+        [Column("Id")]
         public int Id { get; set; }
-        [Column("criado_em")]
+        [Column("Criado_em")]
         public DateTime? CreateAt { get; set; }
-        [Column("nome")]
+        [Column("Nome")]
         [Required]
         [MaxLength(30)]
         public string Name { get; set; }
-        [Column("apelido")]
+        [Column("Apelido")]
         [Required]
         [MaxLength(20)]
         [MinLength(4)]
         public string NickName { get; set;}
-        [Column("cpf")]
+        [Column("Cpf")]
         [Required]
         [MinLength(2)]
         [MaxLength(11)]
         public string Cpf { get; set; }
-        [Column("peso")]
+        [Column("Peso")]
         [Required]
         [MaxLength(4)]
         [MinLength(2)]
         public int WeightClass { get; set; }
+        [Column("LutaId")]
+        public int? FightId { get; set; }
+        //Relacionamento
+
+        public Fight Fight { get; set; }
 
     }
 }

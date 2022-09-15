@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaleApi", "SaleApi\SaleApi.csproj", "{C0361A93-3C2A-4092-95CA-0CA8790DAD13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchCombatApi", "SaleApi\MatchCombatApi.csproj", "{C0361A93-3C2A-4092-95CA-0CA8790DAD13}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossCutting", "CrossCutting\CrossCutting.csproj", "{9B1CC31A-6EF5-4D4C-8FED-EC06759EE455}"
 EndProject
@@ -12,8 +12,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.csproj", "{F4E88F62-6AB5-4A8A-BF80-3882905549F3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{C00EB415-9856-4760-928F-89F5F0DA1A65}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchComabteTest", "MatchComabteTest\MatchComabteTest.csproj", "{A54791D0-68DE-4031-9D2B-156A6D1724BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +39,6 @@ Global
 		{C00EB415-9856-4760-928F-89F5F0DA1A65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C00EB415-9856-4760-928F-89F5F0DA1A65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C00EB415-9856-4760-928F-89F5F0DA1A65}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A54791D0-68DE-4031-9D2B-156A6D1724BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A54791D0-68DE-4031-9D2B-156A6D1724BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A54791D0-68DE-4031-9D2B-156A6D1724BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A54791D0-68DE-4031-9D2B-156A6D1724BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
