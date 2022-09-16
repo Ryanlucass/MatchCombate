@@ -1,47 +1,53 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Domain.Dtos;
+using Domain.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace MatchCombate.Controllers
 {
     [Route("api/[controller]")]
     public class FightsController : ControllerBase
     {
+        private readonly IFightService fightService;
 
-        public FightsController()
+        public FightsController(IFightService fightService)
         {
-
+            this.fightService = fightService;
         }
 
         [HttpPost]
         [Route("create")]
-        public IActionResult CreateLutador([FromBody] FighterDto fighter)
+        public IActionResult CreateLutador([FromBody] FightDto fighter)
         {
             //TODO ajeitar retorno
 
-            var result = MatchLutas.CreateFighter(fighter).Result;
+            var result = fightService.CreateFight(fighter).Result;
 
             return Ok(result);
         }
 
         [HttpGet]
         [Route("selectall")]
-        public IActionResult GetFighters([FromQuery] int? weightClass)
+        public IActionResult GetFighters([FromQuery] DateTime? dateToday)
         {
-            var result = MatchLutas.SelectFighter(weightClass).Result;
+            var result = fightService.SelectAllFight(dateToday).Result;
 
             return Ok(result);
         }
 
-        [HttpGet]
-        public IActionResult GetFighter()
+        [HttpGet("id")]
+        public IActionResult GetFighter(int id)
         {
-            return null;
+            var result = fightService.SelectFight(id).Result;
+
+            return Ok(result);
         }
 
         [HttpPut]
         [Route("atech")]
-        public IActionResult PutFighter(FighterDto fighter)
+        public IActionResult PutFighter(FightDto fighter)
         {
-            var result = MatchLutas.UpdateFighter(fighter).Result;
+            var result = fightService.UpdateFight(fighter).Result;
             return Ok(result);
 
         }
@@ -49,7 +55,7 @@ namespace MatchCombate.Controllers
         [HttpDelete("id")]
         public IActionResult DeleteFighter(int id)
         {
-            var result = MatchLutas.DeleteFighter(id).Result;
+            var result = fightService.DeleteFight(id).Result;
             return Ok(result);
 
         }
