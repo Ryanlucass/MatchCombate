@@ -35,10 +35,11 @@ namespace MatchCombate.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
-        public IActionResult GetFighter()
+        [HttpGet("{id}")]
+        public IActionResult GetFighter(int id)
         {
-            return null;
+            var result = MatchLutas.SelectFighterById(id).Result;
+            return Ok(result);
         }
 
         [HttpPut]
@@ -50,7 +51,7 @@ namespace MatchCombate.Controllers
 
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteFighter(int id)
         {
             var result = MatchLutas.DeleteFighter(id).Result;

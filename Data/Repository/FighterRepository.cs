@@ -46,8 +46,8 @@ namespace Data.Repository
             }
         }
 
-        public async Task<Fighter> GetByIdAsync(int id) => await _db.Fighters.FirstOrDefaultAsync(x => x.Id == id);
-
+        public async Task<Fighter> GetByIdAsync(int id) => _db.Fighters.FirstOrDefault(x => x.Id == id);
+        
         public async Task<List<Fighter>> GetFighteraAsync() => await _db.Fighters.ToListAsync<Fighter>();
  
         /// <summary>

@@ -78,6 +78,22 @@ namespace Service
             return listFighterDto;
         }
 
+        public async Task<FighterDto> SelectFighterById(int id)
+        {
+            var result  = await _fighterRepository.GetByIdAsync(id);
+
+            return new FighterDto()
+            {
+                Id = result.Id,
+                Name = result.Name,
+                NickName = result.NickName,
+                Cpf = result.Cpf,
+                LutaId = result.FightId,
+                WeightClass = result.WeightClass
+            };
+            
+        }
+
         /// <summary>
         /// Update a fighter
         /// </summary>
@@ -119,5 +135,7 @@ namespace Service
 
             return fighterDelete;
         }
+
+
     }
 }

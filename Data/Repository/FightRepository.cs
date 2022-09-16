@@ -4,6 +4,7 @@ using Domain.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Data.Repository
@@ -47,7 +48,7 @@ namespace Data.Repository
             }
         }
 
-        public async Task<Fight> GetByIdAsync(int id) => await _db.Fight.FirstOrDefaultAsync(x => x.Id == id);
+        public async Task<Fight> GetByIdAsync(int id) => _db.Fight.FirstOrDefault(x => x.Id == id);
 
 
         public async Task<List<Fight>> GetFightsAsync() => await _db.Fight.ToListAsync<Fight>();

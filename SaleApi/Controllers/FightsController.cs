@@ -30,12 +30,13 @@ namespace MatchCombate.Controllers
         [Route("selectall")]
         public IActionResult GetFighters([FromQuery] DateTime? dateToday)
         {
+            //TODO Trazer os lutadores associados a ele
             var result = fightService.SelectAllFight(dateToday).Result;
 
             return Ok(result);
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public IActionResult GetFighter(int id)
         {
             var result = fightService.SelectFight(id).Result;
@@ -52,7 +53,7 @@ namespace MatchCombate.Controllers
 
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteFighter(int id)
         {
             var result = fightService.DeleteFight(id).Result;
