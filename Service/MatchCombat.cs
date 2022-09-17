@@ -103,20 +103,33 @@ namespace Service
         public async Task<FighterDto> UpdateFighter(FighterDto fighterDto)
         {
 
-            Fighter primaryFigther = new()
+            var fightExist = _fighterRepository.GetByIdAsync((int)fighterDto.Id).Result;
+            
+            if(fightExist == null)
             {
-                Id = (int)fighterDto.Id,
-                Name = fighterDto.Name,
-                Cpf = fighterDto.Cpf,
-                NickName = fighterDto.NickName,
-                WeightClass = fighterDto.WeightClass,
-                CreateAt = null
-            };
+                throw new Exception($"Id: {fighterDto.Id} não existe");
+            }
 
-            var fighterUpdate = await _fighterRepository.UpdateAsync(primaryFigther);
+            //update do item
+            fightExist.Name = fighterDto.Name ?? fightExist.Name;
+            fightExist.Cpf = fighterDto.Cpf ?? fightExist.Cpf;
+            fightExist.NickName = fighterDto.Cpf ?? fightExist.Cpf;
+            fightExist.WeightClass = fighterDto.WeightClass != 0 ? fighterDto.WeightClass : fightExist.WeightClass;
+            fightExist.FightId = fighterDto.LutaId != null ? fighterDto.LutaId : fightExist.FightId;
+            fightExist.CreateAt = fighterDto.Date != DateTime.MinValue ? fighterDto.Date : fightExist.CreateAt;
+
+            var fighterUpdate = await _fighterRepository.UpdateAsync(fightExist);
 
             if(fighterUpdate != null)
             {
+                fighterDto.Id = fighterUpdate.Id;
+                fighterDto.Name = fighterUpdate.Name;
+                fighterDto.Cpf = fighterUpdate.Cpf;
+                fighterDto.NickName = fighterUpdate.NickName;
+                fighterDto.WeightClass = fighterUpdate.WeightClass;
+                fighterDto.LutaId = fighterUpdate.FightId;
+                fighterDto.Date = (DateTime)fighterUpdate.CreateAt;
+
                 return fighterDto;
             }
             else { return null; }

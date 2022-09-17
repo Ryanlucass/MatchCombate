@@ -1,7 +1,6 @@
 ﻿using Domain.Dtos;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Service;
 
 namespace MatchCombate.Controllers
 {
@@ -50,6 +49,7 @@ namespace MatchCombate.Controllers
             return Ok(result);
 
         }
+        
 
         [HttpDelete("{id}")]
         public IActionResult DeleteFighter(int id)

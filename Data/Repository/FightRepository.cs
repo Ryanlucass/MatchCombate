@@ -59,7 +59,7 @@ namespace Data.Repository
             {
                 _db.Update(item);
                 await _db.SaveChangesAsync();
-                return item;
+                return GetByIdAsync(item.Id).Result;
             }
             catch (Exception ex)
             {

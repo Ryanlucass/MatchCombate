@@ -86,18 +86,28 @@ namespace Service
 
         public async Task<FightDto> UpdateFight(FightDto fighterDto)
         {
-            Fight primaryFight = new()
-            {
-                Id = (int)fighterDto.Id,
-                Date = fighterDto.Data,
-                Box  = fighterDto.Octogono,
-                Locale = fighterDto.Local
-            };
 
-            var fightUpdate = await _fightRepository.UpdateAsync(primaryFight);
+            var fightExist = _fightRepository.GetByIdAsync((int)fighterDto.Id).Result;
+            
+            if(fightExist == null)
+            {
+                throw new Exception($"Id: {fighterDto.Id} não existe");
+            }
+
+            //update item
+            fightExist.Locale = fighterDto.Local ?? fightExist.Locale;
+            fightExist.Box = fightExist.Box ?? fightExist.Box;
+            fightExist.Date = fighterDto.Data != DateTime.MinValue ? fighterDto.Data : fightExist.Date;
+ 
+            var fightUpdate = await _fightRepository.UpdateAsync(fightExist);
 
             if (fightUpdate != null)
             {
+                fighterDto.Id = fightUpdate.Id;
+                fighterDto.Data = fightUpdate.Date;
+                fighterDto.Local = fightUpdate.Locale;
+                fighterDto.Octogono = fightUpdate.Box;
+            
                 return fighterDto;
             }
             else { return null; }

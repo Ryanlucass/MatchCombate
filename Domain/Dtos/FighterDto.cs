@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Dtos
 {
@@ -10,5 +11,6 @@ namespace Domain.Dtos
         public string NickName { get;  set; }
         public string Cpf { get;  set; }
         public int WeightClass { get; set; }
+        public DateTime Date { get; set; }
     }
 }

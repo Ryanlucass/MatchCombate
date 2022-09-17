@@ -62,11 +62,12 @@ namespace Data.Repository
             {
                 _db.Update(item);
                 await _db.SaveChangesAsync();
-                return item;
+
+                return GetByIdAsync(item.Id).Result;
             }
             catch (Exception ex)
             {
-                throw new Exception("Não poi possível atualiar o obj", ex);
+                throw new Exception("Não foi possível atualizar o obj", ex);
             }
         }
     }
