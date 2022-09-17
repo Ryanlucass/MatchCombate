@@ -40,8 +40,8 @@ namespace Domain.Model
         public int WeightClass { get; set; }
         [Column("LutaId")]
         public int? FightId { get; set; }
+        
         //Relacionamento
-
         public Fight Fight { get; set; }
 
     }

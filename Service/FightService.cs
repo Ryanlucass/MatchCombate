@@ -1,4 +1,5 @@
-﻿using Domain.Dtos;
+﻿using AutoMapper;
+using Domain.Dtos;
 using Domain.Interfaces;
 using Domain.Model;
 using System;
@@ -10,11 +11,13 @@ namespace Service
 {
     public class FightService : IFightService
     {
+        private readonly IMapper _mapper;
         private readonly IFightRepository _fightRepository;
 
-        public FightService(IFightRepository fightRepository)
+        public FightService(IFightRepository fightRepository, IMapper mapper)
         {
             _fightRepository = fightRepository;
+            _mapper = mapper;
         }
 
         public async Task<FightDto> CreateFight(FightDto fight)
@@ -22,9 +25,9 @@ namespace Service
             //TODO use mapper 
             var fightData = new Fight()
             {
-              Date = fight.Data,
-              Locale = fight.Local,
-              Box = fight.Octogono
+              Date = fight.Date,
+              Locale = fight.Locale,
+              Box = fight.Box
             };
 
             var result = await _fightRepository.CreateAsync(fightData);
@@ -51,9 +54,9 @@ namespace Service
                      new FightDto()
                      {
                          Id = x.Id,
-                         Data = x.Date,
-                         Local = x.Locale,
-                         Octogono = x.Box
+                         Date = x.Date,
+                         Locale = x.Locale,
+                         Box = x.Box
                      }).ToList();
 
                 return listFightsDto; 
@@ -63,9 +66,9 @@ namespace Service
                 new FightDto()
                 {
                     Id = x.Id,
-                    Data = x.Date,
-                    Local = x.Locale,
-                    Octogono = x.Box
+                    Date = x.Date,
+                    Locale = x.Locale,
+                    Box = x.Box
                 }).ToList();
 
             return listFifhtsToday;
@@ -75,12 +78,13 @@ namespace Service
         {
             var dataFight = await _fightRepository.GetByIdAsync(id);
 
+           
             return new FightDto()
             {
                 Id = dataFight.Id,
-                Data = dataFight.Date,
-                Octogono = dataFight.Locale,
-                Local = dataFight.Locale
+                Date = dataFight.Date,
+                Locale = dataFight.Locale,
+                Box = dataFight.Box
             };
         }
 
@@ -95,18 +99,18 @@ namespace Service
             }
 
             //update item
-            fightExist.Locale = fighterDto.Local ?? fightExist.Locale;
+            fightExist.Locale = fighterDto.Locale ?? fightExist.Locale;
             fightExist.Box = fightExist.Box ?? fightExist.Box;
-            fightExist.Date = fighterDto.Data != DateTime.MinValue ? fighterDto.Data : fightExist.Date;
+            fightExist.Date = fighterDto.Date != DateTime.MinValue ? fighterDto.Date : fightExist.Date;
  
             var fightUpdate = await _fightRepository.UpdateAsync(fightExist);
 
             if (fightUpdate != null)
             {
                 fighterDto.Id = fightUpdate.Id;
-                fighterDto.Data = fightUpdate.Date;
-                fighterDto.Local = fightUpdate.Locale;
-                fighterDto.Octogono = fightUpdate.Box;
+                fighterDto.Date = fightUpdate.Date;
+                fighterDto.Locale = fightUpdate.Locale;
+                fighterDto.Box = fightUpdate.Box;
             
                 return fighterDto;
             }

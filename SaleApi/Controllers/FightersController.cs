@@ -18,8 +18,7 @@ namespace MatchCombate.Controllers
         [Route("create")]
         public IActionResult CreateLutador([FromBody] FighterDto fighter)
         {
-            //TODO ajeitar retorno
-
+            
             var result = MatchLutas.CreateFighter(fighter).Result;
 
             return Ok(result);

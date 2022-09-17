@@ -13,10 +13,12 @@ namespace Service
     public class MatchCombat : IMatchCombat
     {
         private readonly IFighterRepository _fighterRepository;
+        private readonly IMapper _mapper;
 
-        public MatchCombat(IFighterRepository repository)
+        public MatchCombat(IFighterRepository repository, IMapper mapper)
         {
             _fighterRepository = repository;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -26,19 +28,11 @@ namespace Service
         /// <returns></returns>
         public async Task<FighterDto> CreateFighter(FighterDto fighter)
         {
-            //TODO use mapper 
-            Fighter primaryFigther = new()
-            {
-                Name = fighter.Name,
-                Cpf = fighter.Cpf,
-                NickName = fighter.NickName,
-                WeightClass = fighter.WeightClass,
-                CreateAt = DateTime.Now
-            };
+            var fighterDto = _mapper.Map<Fighter>(fighter);
 
-            var result = await _fighterRepository.CreateAsync(primaryFigther);
+            var result = await _fighterRepository.CreateAsync(fighterDto);
 
-            return fighter;
+            return _mapper.Map<FighterDto>(result);
         }
 
         /// <summary>
@@ -82,15 +76,7 @@ namespace Service
         {
             var result  = await _fighterRepository.GetByIdAsync(id);
 
-            return new FighterDto()
-            {
-                Id = result.Id,
-                Name = result.Name,
-                NickName = result.NickName,
-                Cpf = result.Cpf,
-                LutaId = result.FightId,
-                WeightClass = result.WeightClass
-            };
+            return _mapper.Map<FighterDto>(result);
             
         }
 
@@ -115,8 +101,8 @@ namespace Service
             fightExist.Cpf = fighterDto.Cpf ?? fightExist.Cpf;
             fightExist.NickName = fighterDto.Cpf ?? fightExist.Cpf;
             fightExist.WeightClass = fighterDto.WeightClass != 0 ? fighterDto.WeightClass : fightExist.WeightClass;
-            fightExist.FightId = fighterDto.LutaId != null ? fighterDto.LutaId : fightExist.FightId;
-            fightExist.CreateAt = fighterDto.Date != DateTime.MinValue ? fighterDto.Date : fightExist.CreateAt;
+            fightExist.FightId = fighterDto.FightId != null ? fighterDto.FightId : fightExist.FightId;
+            fightExist.CreateAt = fighterDto.CreateAt != DateTime.MinValue ? fighterDto.CreateAt : fightExist.CreateAt;
 
             var fighterUpdate = await _fighterRepository.UpdateAsync(fightExist);
 
@@ -127,8 +113,8 @@ namespace Service
                 fighterDto.Cpf = fighterUpdate.Cpf;
                 fighterDto.NickName = fighterUpdate.NickName;
                 fighterDto.WeightClass = fighterUpdate.WeightClass;
-                fighterDto.LutaId = fighterUpdate.FightId;
-                fighterDto.Date = (DateTime)fighterUpdate.CreateAt;
+                fighterDto.FightId = fighterUpdate.FightId;
+                fighterDto.CreateAt = (DateTime)fighterUpdate.CreateAt;
 
                 return fighterDto;
             }

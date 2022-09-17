@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Service;
+using System;
 
 namespace MatchCombate
 {
@@ -33,7 +34,9 @@ namespace MatchCombate
             ///Repositorys
             services.AddTransient<IFighterRepository, FighterRepository>();
             services.AddTransient<IFightRepository, FightRepository>();
-            
+            //AutoMapper
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            //Data
             services.AddDbContext<MatchCombateContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 
