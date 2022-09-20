@@ -9,7 +9,9 @@ namespace Domain.Mappers
     {
         public MappingToFighter()
         {
-            CreateMap<Fighter, FighterDto>();
+            CreateMap<Fighter, FighterDto>()
+                .ForMember(x => x.CreateAt, map =>
+                map.MapFrom(f => f.CreateAt.Value.Date.ToString("dd - MM - yyyy")));
         }
     }
 

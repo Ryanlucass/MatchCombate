@@ -22,16 +22,13 @@ namespace Service
 
         public async Task<FightDto> CreateFight(FightDto fight)
         {
-            //TODO use mapper 
-            var fightData = new Fight()
-            {
-              Date = fight.Date,
-              Locale = fight.Locale,
-              Box = fight.Box
-            };
+            //TODO: fazer as verificações 
 
-            var result = await _fightRepository.CreateAsync(fightData);
-            return fight;
+            var fightDto = _mapper.Map<Fight>(fight);
+            var result = await _fightRepository.CreateAsync(fightDto);
+
+            return _mapper.Map<FightDto>(result);
+
         }
 
         public Task<bool> DeleteFight(int id)
@@ -78,14 +75,7 @@ namespace Service
         {
             var dataFight = await _fightRepository.GetByIdAsync(id);
 
-           
-            return new FightDto()
-            {
-                Id = dataFight.Id,
-                Date = dataFight.Date,
-                Locale = dataFight.Locale,
-                Box = dataFight.Box
-            };
+            return _mapper.Map<FightDto>(dataFight);
         }
 
         public async Task<FightDto> UpdateFight(FightDto fighterDto)
@@ -105,16 +95,8 @@ namespace Service
  
             var fightUpdate = await _fightRepository.UpdateAsync(fightExist);
 
-            if (fightUpdate != null)
-            {
-                fighterDto.Id = fightUpdate.Id;
-                fighterDto.Date = fightUpdate.Date;
-                fighterDto.Locale = fightUpdate.Locale;
-                fighterDto.Box = fightUpdate.Box;
-            
-                return fighterDto;
-            }
-            else { return null; }
+            return _mapper.Map<FightDto>(fightUpdate);
+
         }
     }
 }

@@ -41,29 +41,32 @@ namespace Service
         /// <returns></returns>
         public async Task<List<FighterDto>> SelectFighter( int? weightClass)
         { 
-            //TODO use mapper
             var result = await _fighterRepository.GetFighteraAsync();
- 
+
             var listFighterDto = result.Select(x =>
                 new FighterDto()
                 {
                     Id = x.Id,
-                    Cpf = x.Cpf,
+                    CreateAt = (DateTime)x.CreateAt,
                     Name = x.Name,
                     NickName = x.NickName,
-                    WeightClass = x.WeightClass
+                    Cpf = x.Cpf,
+                    WeightClass = x.WeightClass,
+                    FightId = x.FightId
                 }).ToList();
 
-            if(weightClass != null)
+            if (weightClass != null)
             {
                 var listbyweight = result.Where(x => x.WeightClass == weightClass).Select(x =>
                 new FighterDto()
                 {
                     Id = x.Id,
-                    Cpf = x.Cpf,
+                    CreateAt = (DateTime)x.CreateAt,
                     Name = x.Name,
                     NickName = x.NickName,
-                    WeightClass = x.WeightClass
+                    Cpf = x.Cpf,
+                    WeightClass = x.WeightClass,
+                    FightId = x.FightId
                 }).ToList();
 
                 listFighterDto = listbyweight;
@@ -80,18 +83,11 @@ namespace Service
             
         }
 
-        /// <summary>
-        /// Update a fighter
-        /// </summary>
-        /// <param name="fighterDto"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         public async Task<FighterDto> UpdateFighter(FighterDto fighterDto)
         {
-
             var fightExist = _fighterRepository.GetByIdAsync((int)fighterDto.Id).Result;
             
-            if(fightExist == null)
+            if (fightExist == null)
             {
                 throw new Exception($"Id: {fighterDto.Id} não existe");
             }
@@ -102,39 +98,15 @@ namespace Service
             fightExist.NickName = fighterDto.Cpf ?? fightExist.Cpf;
             fightExist.WeightClass = fighterDto.WeightClass != 0 ? fighterDto.WeightClass : fightExist.WeightClass;
             fightExist.FightId = fighterDto.FightId != null ? fighterDto.FightId : fightExist.FightId;
-            fightExist.CreateAt = fighterDto.CreateAt != DateTime.MinValue ? fighterDto.CreateAt : fightExist.CreateAt;
+            fightExist.CreateAt = fighterDto.CreateAt != DateTime.MinValue ? fighterDto.CreateAt.Date : fightExist.CreateAt;
 
             var fighterUpdate = await _fighterRepository.UpdateAsync(fightExist);
 
-            if(fighterUpdate != null)
-            {
-                fighterDto.Id = fighterUpdate.Id;
-                fighterDto.Name = fighterUpdate.Name;
-                fighterDto.Cpf = fighterUpdate.Cpf;
-                fighterDto.NickName = fighterUpdate.NickName;
-                fighterDto.WeightClass = fighterUpdate.WeightClass;
-                fighterDto.FightId = fighterUpdate.FightId;
-                fighterDto.CreateAt = (DateTime)fighterUpdate.CreateAt;
-
-                return fighterDto;
-            }
-            else { return null; }
+            return _mapper.Map<FighterDto>(fighterUpdate);
 
         }
 
-        /// <summary>
-        /// delete a fighter
-        /// </summary>
-        /// <param name="fighterDto"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public async Task<bool> DeleteFighter(int id)
-        {
-            var fighterDelete = await _fighterRepository.DeleteAsync(id);
-
-            return fighterDelete;
-        }
-
+        public async Task<bool> DeleteFighter(int id) => await _fighterRepository.DeleteAsync(id);
 
     }
 }
