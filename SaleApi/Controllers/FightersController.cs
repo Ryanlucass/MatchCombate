@@ -1,6 +1,7 @@
 ﻿using Domain.Dtos;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace MatchCombate.Controllers
 {
@@ -15,6 +16,8 @@ namespace MatchCombate.Controllers
         }
 
         [HttpPost]
+        [SwaggerResponse(201, "Lutador cadastrado")]
+        [SwaggerResponse(400, "Erro ao cadastrar lutador")]
         [Route("create")]
         public IActionResult CreateLutador([FromBody] FighterDto fighter)
         {
