@@ -33,4 +33,5 @@ Ao informar os lutadores e suas características, o sistema automaticamente irá
 - ReactJs
 - HTML 
 - CSS 
+- Jwt Authentication
 - JavaScript
