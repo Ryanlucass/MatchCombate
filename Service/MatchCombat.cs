@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using Data.Repository;
-using Domain.Dtos;
+using Domain.Dtos.FighterDtos;
 using Domain.Interfaces;
 using Domain.Model;
 using System;
@@ -26,11 +25,12 @@ namespace Service
         /// </summary>
         /// <param name="fighter"></param>
         /// <returns></returns>
-        public async Task<FighterDto> CreateFighter(FighterDto fighter)
+        public async Task<FighterDto> CreateFighter(FighterDtoCreate item)
         {
-            var fighterDto = _mapper.Map<Fighter>(fighter);
+            //var fighterDto = _mapper.Map<Fighter>(fighter);
+            var fighter = _mapper.Map<Fighter>(item);
 
-            var result = await _fighterRepository.CreateAsync(fighterDto);
+            var result = await _fighterRepository.CreateAsync(fighter);
 
             return _mapper.Map<FighterDto>(result);
         }

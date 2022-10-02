@@ -1,12 +1,7 @@
-﻿using Domain.Validation;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Domain.Model
 {
@@ -18,7 +13,7 @@ namespace Domain.Model
         [Column("Id")]
         public int Id { get; set; }
         [Column("Criado_em")]
-        public DateTime? CreateAt { get; set; }
+        public DateTime? CreateAt { get; set; } = DateTime.Now;
         [Column("Nome")]
         [Required]
         [MaxLength(30)]
@@ -32,6 +27,7 @@ namespace Domain.Model
         [Required]
         [MinLength(2)]
         [MaxLength(11)]
+
         public string Cpf { get; set; }
         [Column("Peso")]
         [Required]
@@ -40,7 +36,7 @@ namespace Domain.Model
         public int WeightClass { get; set; }
         [Column("LutaId")]
         public int? FightId { get; set; }
-        
+
         //Relacionamento
         public Fight Fight { get; set; }
 

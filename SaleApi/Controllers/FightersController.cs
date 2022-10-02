@@ -1,4 +1,4 @@
-﻿using Domain.Dtos;
+﻿using Domain.Dtos.FighterDtos;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -9,21 +9,19 @@ namespace MatchCombate.Controllers
     [ApiController]
     public class FightersController : ControllerBase
     {
-        public IMatchCombat MatchLutas { get; set; }
+        private readonly IMatchCombat matchLutas;
         public FightersController(IMatchCombat matchLutas)
         {
-            MatchLutas = matchLutas; 
+            this.matchLutas = matchLutas; 
         }
 
         [HttpPost]
         [SwaggerResponse(201, "Lutador cadastrado")]
         [SwaggerResponse(400, "Erro ao cadastrar lutador")]
         [Route("create")]
-        public IActionResult CreateLutador([FromBody] FighterDto fighter)
+        public IActionResult CreateLutador([FromBody] FighterDtoCreate fighter)
         {
-            
-            var result = MatchLutas.CreateFighter(fighter).Result;
-
+            var result = matchLutas.CreateFighter(fighter).Result;
             return Ok(result);
         }
 
@@ -31,7 +29,7 @@ namespace MatchCombate.Controllers
         [Route("selectall")]
         public IActionResult GetFighters([FromQuery] int? weightClass)
         {
-            var result = MatchLutas.SelectFighter(weightClass).Result;
+            var result = matchLutas.SelectFighter(weightClass).Result;
 
             return Ok(result);
         }
@@ -39,7 +37,7 @@ namespace MatchCombate.Controllers
         [HttpGet("{id}")]
         public IActionResult GetFighter(int id)
         {
-            var result = MatchLutas.SelectFighterById(id).Result;
+            var result = matchLutas.SelectFighterById(id).Result;
             return Ok(result);
         }
 
@@ -47,7 +45,7 @@ namespace MatchCombate.Controllers
         [Route("atech")]
         public IActionResult PutFighter(FighterDto fighter)
         {
-            var result = MatchLutas.UpdateFighter(fighter).Result;
+            var result = matchLutas.UpdateFighter(fighter).Result;
             return Ok(result);
 
         }
@@ -56,7 +54,7 @@ namespace MatchCombate.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteFighter(int id)
         {
-            var result = MatchLutas.DeleteFighter(id).Result;
+            var result = matchLutas.DeleteFighter(id).Result;
             return Ok(result);
 
         }

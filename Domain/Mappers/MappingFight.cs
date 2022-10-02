@@ -9,12 +9,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Mappers
 {
-    public class MappingFight : Profile
+    public class MappingToFight : Profile
     {
-        public MappingFight()
+        public MappingToFight()
         {
-            CreateMap<Fight, FightDto>()
-                .ReverseMap();
+            CreateMap<Fight, FightDto>();
         }
     }
 }
