@@ -1,7 +1,8 @@
 ﻿using Domain.Validation;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -9,46 +10,39 @@ using System.Threading.Tasks;
 
 namespace Domain.Model
 {
+    [Table("Lutador")]
     public class Fighter
     {
-        public int Id { get; private set; }
-        public DateTime CreateAt { get; private set; }
-        public string Name { get; private set; }
-        public string NickName { get; private set;}
-        public string Martialarts { get; private set; }
-        public string Cpf { get; private set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("Id")]
+        public int Id { get; set; }
+        [Column("Criado_em")]
+        public DateTime? CreateAt { get; set; }
+        [Column("Nome")]
+        [Required]
+        [MaxLength(30)]
+        public string Name { get; set; }
+        [Column("Apelido")]
+        [Required]
+        [MaxLength(20)]
+        [MinLength(4)]
+        public string NickName { get; set;}
+        [Column("Cpf")]
+        [Required]
+        [MinLength(2)]
+        [MaxLength(11)]
+        public string Cpf { get; set; }
+        [Column("Peso")]
+        [Required]
+        [MaxLength(4)]
+        [MinLength(2)]
         public int WeightClass { get; set; }
+        [Column("LutaId")]
+        public int? FightId { get; set; }
+        
+        //Relacionamento
+        public Fight Fight { get; set; }
 
-
-        //Create a fighter
-        public Fighter(string name, string nickname, string martialarts, string cpf, int weightclass)
-        {
-            Validation(name, nickname, martialarts, cpf, weightclass);
-        }
-
-        //Update a Figther
-        public Fighter(int id,string name, string nickname, string martialarts, string cpf, int weightclass)
-        {
-            ValidationExeption.When(id < 0, "Informe um Id válido");
-            Id = id;
-            Validation(name, nickname, martialarts, cpf, weightclass);
-        }
-
-        private void Validation(string name, string nickname, string martialarts, string cpf, int weightclass)
-        {
-
-            ValidationExeption.When(string.IsNullOrEmpty(name),"Informe um nome para o lutador");
-            ValidationExeption.When(string.IsNullOrEmpty(nickname),"Informe um apelido ou abreviação para o lutador");
-            ValidationExeption.When(string.IsNullOrEmpty(martialarts), "Informe uma Arte Marcial");
-            ValidationExeption.When(Regex.IsMatch(cpf, @"^\d{ 3}\d{ 3}\d{ 3}\d{2}$"), "Cpf informado não é válido");
-            ValidationExeption.When(weightclass <= 0, "Informe o peso do atelta para informamos sua categoria");
-
-            Name = name;
-            NickName = nickname;
-            Martialarts = martialarts;  
-            WeightClass = weightclass;
-            Cpf = cpf;
-            CreateAt = DateTime.Now;
-        }
     }
 }

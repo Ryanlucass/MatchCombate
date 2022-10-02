@@ -1,7 +1,6 @@
 using Data.DbCotext;
-using Data.Interfaces;
 using Data.Repository;
-using Domain.Intefaces;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Service;
+using System;
 
 namespace MatchCombate
 {
@@ -30,9 +30,13 @@ namespace MatchCombate
             ///Injection Dependency
             ///Services 
             services.AddTransient<IMatchCombat, MatchCombat>();
+            services.AddTransient<IFightService, FightService>();
             ///Repositorys
-            services.AddTransient<ICombatRepository, CombatRepository>();
-            
+            services.AddTransient<IFighterRepository, FighterRepository>();
+            services.AddTransient<IFightRepository, FightRepository>();
+            //AutoMapper
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            //Data
             services.AddDbContext<MatchCombateContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 

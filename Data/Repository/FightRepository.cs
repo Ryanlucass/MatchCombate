@@ -9,25 +9,26 @@ using System.Threading.Tasks;
 
 namespace Data.Repository
 {
-    public class FighterRepository : IFighterRepository
+    public class FightRepository : IFightRepository
     {
         private readonly MatchCombateContext _db;
 
-        public FighterRepository(MatchCombateContext db)
+        public FightRepository(MatchCombateContext db)
         {
             _db = db;
         }
-        public async Task<Fighter> CreateAsync(Fighter judge)
+
+        public async Task<Fight> CreateAsync(Fight fight)
         {
             try
             {
-                _db.Add(judge);
+                _db.Add(fight);
                 await _db.SaveChangesAsync();
-                return judge;
+                return fight;
             }
             catch (Exception ex)
             {
-                throw new Exception($"Problema ao criar {judge.Id}", ex);
+                throw new Exception($"Problema ao criar {fight.Id}", ex);
             }
         }
 
@@ -35,39 +36,34 @@ namespace Data.Repository
         {
             try
             {
-                var fighter = await GetByIdAsync(id);
-                _db.Remove(fighter);
+                //TODO Ajeitar o delete em cascate
+                var fight = await GetByIdAsync(id);
+                _db.Remove(fight);
                 await _db.SaveChangesAsync();
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception($"Problema ao deletar {id}",ex);
             }
         }
 
-        public async Task<Fighter> GetByIdAsync(int id) => _db.Fighters.FirstOrDefault(x => x.Id == id);
-        
-        public async Task<List<Fighter>> GetFighteraAsync() => await _db.Fighters.ToListAsync<Fighter>();
- 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="item">fighter to update</param>
-        /// <returns>fighter was update</returns>
-        /// <exception cref="Exception"></exception>
-        public async Task<Fighter> UpdateAsync(Fighter item)
+        public async Task<Fight> GetByIdAsync(int id) => _db.Fight.FirstOrDefault(x => x.Id == id);
+
+
+        public async Task<List<Fight>> GetFightsAsync() => await _db.Fight.ToListAsync<Fight>();
+
+        public async Task<Fight> UpdateAsync(Fight item)
         {
             try
             {
                 _db.Update(item);
                 await _db.SaveChangesAsync();
-
                 return GetByIdAsync(item.Id).Result;
             }
             catch (Exception ex)
             {
-                throw new Exception("Não foi possível atualizar o obj", ex);
+                throw new Exception("Não poi possível atualiar o obj", ex);
             }
         }
     }

@@ -1,18 +1,16 @@
 ﻿using Domain.Dtos;
-using Domain.Model;
-using Domain.Results;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Intefaces
+namespace Domain.Interfaces
 {
     public interface IMatchCombat
     {
-       Task<ResultService<CombatDto>> CreateAsyncCombat(CombatDto combat);
-       Task<ResultService<CombatDto>> UpdateAsyncCombat(CombatDto combat);
-       Task<ResultService<CombatDto>> DeleteAsyncCombat(int id);
+        public Task<FighterDto> CreateFighter(FighterDto fighterDto);
+        public Task<List<FighterDto>> SelectFighter(int? weightClass);
+        public Task<FighterDto> UpdateFighter(FighterDto fighterDto);
+        public Task<FighterDto> SelectFighterById(int id);
+        public Task<bool> DeleteFighter(int id);
+        
     }
 }
