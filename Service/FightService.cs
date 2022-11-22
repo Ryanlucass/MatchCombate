@@ -20,62 +20,32 @@ namespace Service
             _mapper = mapper;
         }
 
-        public async Task<FightDto> CreateFight(FightDto fight)
+        public async Task<FightDto> CreateFight(FightDto obj)
         {
-            //TODO: fazer as verificações 
-
-            var fightDto = _mapper.Map<Fight>(fight);
-            var result = await _fightRepository.CreateAsync(fightDto);
-
-            return _mapper.Map<FightDto>(result);
-
+            Fight interfaceFight = _mapper.Map<Fight>(obj);
+            Fight fightResult = await _fightRepository.CreateAsync(interfaceFight);
+            return _mapper.Map<FightDto>(fightResult);
         }
 
         public Task<bool> DeleteFight(int id)
         {
-            //TODO Ajeitar cascata do delete
             throw new NotImplementedException();
         }
-        /// <summary>
-        /// Query retorna as lutas referentes a data de hoje
-        /// </summary>
-        /// <param name="dates"></param>
-        /// <returns></returns>
-        public async Task<List<FightDto>> SelectAllFight(DateTime? dates)
+
+
+        public async Task<List<FightDto>> SelectAllFight(DateTime? date)
         {
-            var result = await _fightRepository.GetFightsAsync();            
+            List<Fight> listFight = await _fightRepository.GetFightsAsync();
 
-            if(dates == null || dates == DateTime.MinValue)
-            {
-                var listFightsDto = result.Select(x =>
-                     new FightDto()
-                     {
-                         Id = x.Id,
-                         Date = x.Date,
-                         Locale = x.Locale,
-                         Box = x.Box
-                     }).ToList();
-
-                return listFightsDto; 
-            }
-
-            var listFifhtsToday = result.Where(x => x.Date == DateTime.Today).Select(x => 
-                new FightDto()
-                {
-                    Id = x.Id,
-                    Date = x.Date,
-                    Locale = x.Locale,
-                    Box = x.Box
-                }).ToList();
-
-            return listFifhtsToday;
+            return date == null || date == DateTime.MinValue ?
+                listFight.Select(x => _mapper.Map<FightDto>(x)).ToList() :
+                listFight.Where(x => x.Date == date).Select(x => _mapper.Map<FightDto>(x)).ToList();
         }
 
         public async Task<FightDto> SelectFight(int id)
         {
-            var dataFight = await _fightRepository.GetByIdAsync(id);
-
-            return _mapper.Map<FightDto>(dataFight);
+            var fightResult = await _fightRepository.GetByIdAsync(id);
+            return _mapper.Map<FightDto>(fightResult);
         }
 
         public async Task<FightDto> UpdateFight(FightDto fighterDto)

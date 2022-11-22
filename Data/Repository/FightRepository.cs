@@ -1,9 +1,11 @@
 ﻿using Data.DbCotext;
+using Domain.Exptions;
 using Domain.Interfaces;
 using Domain.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,7 +30,7 @@ namespace Data.Repository
             }
             catch (Exception ex)
             {
-                throw new Exception($"Problema ao criar {fight.Id}", ex);
+                throw new DbExecption("Fight_Create", $"Erro ao criar item :{ex.Message}");
             }
         }
 
@@ -36,7 +38,7 @@ namespace Data.Repository
         {
             try
             {
-                //TODO Ajeitar o delete em cascate
+                //TODO consertar delete [erro cascate]
                 var fight = await GetByIdAsync(id);
                 _db.Remove(fight);
                 await _db.SaveChangesAsync();
@@ -44,12 +46,11 @@ namespace Data.Repository
             }
             catch (Exception ex)
             {
-                throw new Exception($"Problema ao deletar {id}",ex);
+                throw new DbExecption($"Fight_Delete", $"Erro ao Deletar :{ex.Message}");
             }
         }
 
-        public async Task<Fight> GetByIdAsync(int id) => _db.Fight.FirstOrDefault(x => x.Id == id);
-
+        public async Task<Fight> GetByIdAsync(int id) => await _db.Fight.FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task<List<Fight>> GetFightsAsync() => await _db.Fight.ToListAsync<Fight>();
 
@@ -63,7 +64,7 @@ namespace Data.Repository
             }
             catch (Exception ex)
             {
-                throw new Exception("Não poi possível atualiar o obj", ex);
+                throw new DbExecption($"Fight_Update", $"Erro ao Atualizar :{ex.Message}");
             }
         }
     }
