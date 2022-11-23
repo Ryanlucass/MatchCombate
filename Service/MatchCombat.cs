@@ -20,11 +20,6 @@ namespace Service
             _mapper = mapper;
         }
 
-        /// <summary>
-        /// Create a fighter
-        /// </summary>
-        /// <param name="fighter"></param>
-        /// <returns></returns>
         public async Task<FighterDto> CreateFighter(FighterDtoCreate item)
         {
             //var fighterDto = _mapper.Map<Fighter>(fighter);
@@ -35,10 +30,7 @@ namespace Service
             return _mapper.Map<FighterDto>(result);
         }
 
-        /// <summary>
-        /// select every fithers or select by weight
-        /// </summary>
-        /// <returns></returns>
+
         public async Task<List<FighterDto>> SelectFighter( int? weightClass)
         { 
             var result = await _fighterRepository.GetFighteraAsync();

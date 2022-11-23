@@ -2,6 +2,7 @@
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 
 namespace MatchCombate.Controllers
 {
@@ -16,49 +17,18 @@ namespace MatchCombate.Controllers
         }
 
         [HttpPost]
-        [Route("create")]
-        public IActionResult CreateLutador([FromBody] FightDto fighter)
-        {
-            //TODO ajeitar retorno
-
-            var result = fightService.CreateFight(fighter).Result;
-
-            return Ok(result);
-        }
+        public FightDto CreateLutador([FromBody] FightDto fighter) => fightService.CreateFight(fighter).Result;
 
         [HttpGet]
-        [Route("selectall")]
-        public IActionResult GetFighters([FromQuery] DateTime? dateToday)
-        {
-            //TODO Trazer os lutadores associados a ele
-            var result = fightService.SelectAllFight(dateToday).Result;
-
-            return Ok(result);
-        }
+        public List<FightDto> GetFighters([FromQuery] DateTime? dateToday) => fightService.SelectAllFight(dateToday).Result;
 
         [HttpGet("{id}")]
-        public IActionResult GetFighter(int id)
-        {
-            var result = fightService.SelectFight(id).Result;
-
-            return Ok(result);
-        }
+        public FightDto GetFighter(int id) => fightService.SelectFight(id).Result;
 
         [HttpPut]
-        [Route("atech")]
-        public IActionResult PutFighter(FightDto fighter)
-        {
-            var result = fightService.UpdateFight(fighter).Result;
-            return Ok(result);
-
-        }
+        public FightDto PutFighter(FightDto fighter) => fightService.UpdateFight(fighter).Result;
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteFighter(int id)
-        {
-            var result = fightService.DeleteFight(id).Result;
-            return Ok(result);
-
-        }
+        public bool DeleteFighter(int id) => fightService.DeleteFight(id).Result;
     }
 }

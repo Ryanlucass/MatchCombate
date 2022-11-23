@@ -3,45 +3,42 @@ using System;
 using Data.DbCotext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
     [DbContext(typeof(MatchCombateContext))]
-    [Migration("20220915024451_Nullforeing")]
-    partial class Nullforeing
+    [Migration("20221123022720_first")]
+    partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.17")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64)
+                .HasAnnotation("ProductVersion", "5.0.17");
 
             modelBuilder.Entity("Domain.Model.Fight", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("Id");
 
                     b.Property<string>("Box")
                         .HasMaxLength(23)
-                        .HasColumnType("nvarchar(23)")
+                        .HasColumnType("varchar(23)")
                         .HasColumnName("Octogono");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("Data");
 
                     b.Property<string>("Locale")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("Local");
 
                     b.HasKey("Id");
@@ -54,38 +51,38 @@ namespace Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("Id");
 
                     b.Property<string>("Cpf")
                         .IsRequired()
                         .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)")
-                        .HasColumnName("cpf");
+                        .HasColumnType("varchar(11)")
+                        .HasColumnName("Cpf");
 
                     b.Property<DateTime?>("CreateAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("criado_em");
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("Criado_em");
 
                     b.Property<int?>("FightId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("LutaId");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)")
-                        .HasColumnName("nome");
+                        .HasColumnType("varchar(30)")
+                        .HasColumnName("Nome");
 
                     b.Property<string>("NickName")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
-                        .HasColumnName("apelido");
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("Apelido");
 
                     b.Property<int>("WeightClass")
                         .HasMaxLength(4)
                         .HasColumnType("int")
-                        .HasColumnName("peso");
+                        .HasColumnName("Peso");
 
                     b.HasKey("Id");
 

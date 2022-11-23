@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using MySqlConnector;
 using Service;
 using System;
 
@@ -15,19 +16,16 @@ namespace MatchCombate
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
-            ///Injection Dependency
             ///Services 
             services.AddTransient<IMatchCombat, MatchCombat>();
             services.AddTransient<IFightService, FightService>();
@@ -37,8 +35,11 @@ namespace MatchCombate
             //AutoMapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             //Data
-            services.AddDbContext<MatchCombateContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
+            //services.AddDbContext<MatchCombateContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
+            //string connection mysql
+            string mySqlConnection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<MatchCombateContext>(options =>
+            options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
 
             services.AddSwaggerGen(c =>
             {
