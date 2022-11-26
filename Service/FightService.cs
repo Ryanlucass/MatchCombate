@@ -48,10 +48,7 @@ namespace Service
         public async Task<FightDtoGet> UpdateFight(FightDtoPut fighterDto, int id)
         {
             var fightExist = _fightRepository.GetByIdAsync(id).Result;
-            if(fightExist == null)
-            {
-                throw new Exception($"Id: {id} não existe");
-            }
+            if(fightExist == null) {throw new Exception($"Id: {id} não existe");}
 
             //update item
             fightExist.Locale = fighterDto.Locale ?? fightExist.Locale;
@@ -59,7 +56,6 @@ namespace Service
             fightExist.Date = fighterDto.Date != DateTime.MinValue ? fighterDto.Date : fightExist.Date;
  
             var fightUpdate = await _fightRepository.UpdateAsync(fightExist);
-
             return _mapper.Map<FightDtoGet>(fightUpdate);
 
         }

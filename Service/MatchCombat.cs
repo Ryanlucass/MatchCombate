@@ -13,76 +13,38 @@ namespace Service
     {
         private readonly IFighterRepository _fighterRepository;
         private readonly IMapper _mapper;
-
         public MatchCombat(IFighterRepository repository, IMapper mapper)
         {
             _fighterRepository = repository;
             _mapper = mapper;
         }
 
-        public async Task<FighterDto> CreateFighter(FighterDtoCreate item)
+        public async Task<FighterDtoGet> CreateFighter(FighterDto item)
         {
-            //var fighterDto = _mapper.Map<Fighter>(fighter);
-            var fighter = _mapper.Map<Fighter>(item);
+            Fighter fighter = _mapper.Map<Fighter>(item);
+            Fighter resultFighter = await _fighterRepository.CreateAsync(fighter);
 
-            var result = await _fighterRepository.CreateAsync(fighter);
-
-            return _mapper.Map<FighterDto>(result);
+            return _mapper.Map<FighterDtoGet>(resultFighter);
         }
 
-
-        public async Task<List<FighterDto>> SelectFighter( int? weightClass)
+        public async Task<List<FighterDtoGet>> SelectFighter( int? weightClass)
         { 
-            var result = await _fighterRepository.GetFighteraAsync();
-
-            var listFighterDto = result.Select(x =>
-                new FighterDto()
-                {
-                    Id = x.Id,
-                    CreateAt = (DateTime)x.CreateAt,
-                    Name = x.Name,
-                    NickName = x.NickName,
-                    Cpf = x.Cpf,
-                    WeightClass = x.WeightClass,
-                    FightId = x.FightId
-                }).ToList();
-
-            if (weightClass != null)
-            {
-                var listbyweight = result.Where(x => x.WeightClass == weightClass).Select(x =>
-                new FighterDto()
-                {
-                    Id = x.Id,
-                    CreateAt = (DateTime)x.CreateAt,
-                    Name = x.Name,
-                    NickName = x.NickName,
-                    Cpf = x.Cpf,
-                    WeightClass = x.WeightClass,
-                    FightId = x.FightId
-                }).ToList();
-
-                listFighterDto = listbyweight;
-            }
-
-            return listFighterDto;
+            List<Fighter> listFight = await _fighterRepository.GetFighteraAsync();
+            return weightClass >= 44.35 ?
+                listFight.Where(x => x.WeightClass == weightClass).Select(x => _mapper.Map<FighterDtoGet>(x)).ToList() :
+                listFight.Select(x => _mapper.Map<FighterDtoGet>(x)).ToList();
         }
 
-        public async Task<FighterDto> SelectFighterById(int id)
+        public async Task<FighterDtoGet> SelectFighterById(int id)
         {
-            var result  = await _fighterRepository.GetByIdAsync(id);
-
-            return _mapper.Map<FighterDto>(result);
-            
+            var result = await _fighterRepository.GetByIdAsync(id);
+            return _mapper.Map<FighterDtoGet>(result);
         }
 
-        public async Task<FighterDto> UpdateFighter(FighterDto fighterDto)
+        public async Task<FighterDtoGet> UpdateFighter(FighterDto fighterDto, int id)
         {
-            var fightExist = _fighterRepository.GetByIdAsync((int)fighterDto.Id).Result;
-            
-            if (fightExist == null)
-            {
-                throw new Exception($"Id: {fighterDto.Id} não existe");
-            }
+            var fightExist = _fighterRepository.GetByIdAsync(id).Result;
+            if (fightExist == null){throw new Exception($"Id: {id} não existe");}
 
             //update do item
             fightExist.Name = fighterDto.Name ?? fightExist.Name;
@@ -93,9 +55,7 @@ namespace Service
             fightExist.CreateAt = fighterDto.CreateAt != DateTime.MinValue ? fighterDto.CreateAt.Date : fightExist.CreateAt;
 
             var fighterUpdate = await _fighterRepository.UpdateAsync(fightExist);
-
-            return _mapper.Map<FighterDto>(fighterUpdate);
-
+            return _mapper.Map<FighterDtoGet>(fighterUpdate);
         }
 
         public async Task<bool> DeleteFighter(int id) => await _fighterRepository.DeleteAsync(id);

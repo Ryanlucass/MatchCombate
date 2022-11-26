@@ -8,8 +8,8 @@ namespace Domain.Mappers
     {
         public MappintToFightDto()
         {
-            CreateMap<Fight, FightDto>()
-            .ReverseMap();
+            CreateMap<Fight, FightDto>();
+            CreateMap<Fight, FightDtoGet>();
         }
     }
     

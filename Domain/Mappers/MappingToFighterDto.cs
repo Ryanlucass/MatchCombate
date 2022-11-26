@@ -12,6 +12,10 @@ namespace Domain.Mappers
             CreateMap<Fighter, FighterDto>()
                 .ForMember(x => x.CreateAt, map =>
                 map.MapFrom(f => f.CreateAt.Value.Date.ToString("dd - MM - yyyy")));
+            
+            //automático
+            CreateMap<Fighter, FighterDtoGet>();
+            
         }
     }
 }
