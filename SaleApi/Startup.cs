@@ -35,8 +35,6 @@ namespace MatchCombate
             //AutoMapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             //Data
-            //services.AddDbContext<MatchCombateContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
-            //string connection mysql
             string mySqlConnection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<MatchCombateContext>(options =>
             options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));

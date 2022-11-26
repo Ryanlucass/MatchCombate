@@ -12,7 +12,6 @@ namespace Domain.Mappers
         public MappingToFighter()
         {
             CreateMap<FighterDto, Fighter>();
-            CreateMap<FighterDtoCreate, Fighter>();
         }
     }
 }

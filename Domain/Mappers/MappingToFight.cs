@@ -14,6 +14,7 @@ namespace Domain.Mappers
         public MappingToFight()
         {
             CreateMap<Fight, FightDto>();
+            CreateMap<Fight, FightDtoGet>();
         }
     }
 }

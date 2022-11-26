@@ -17,16 +17,16 @@ namespace MatchCombate.Controllers
         }
 
         [HttpPost]
-        public FightDto CreateLutador([FromBody] FightDto fighter) => fightService.CreateFight(fighter).Result;
+        public FightDtoGet CreateLutador([FromBody] FightDto fighter) => fightService.CreateFight(fighter).Result;
 
         [HttpGet]
-        public List<FightDto> GetFighters([FromQuery] DateTime? dateToday) => fightService.SelectAllFight(dateToday).Result;
+        public List<FightDtoGet> GetFighters([FromQuery] DateTime? dateToday) => fightService.SelectAllFight(dateToday).Result;
 
         [HttpGet("{id}")]
-        public FightDto GetFighter(int id) => fightService.SelectFight(id).Result;
+        public FightDtoGet GetFighter(int id) => fightService.SelectFight(id).Result;
 
-        [HttpPut]
-        public FightDto PutFighter(FightDto fighter) => fightService.UpdateFight(fighter).Result;
+        [HttpPut("{id}")]
+        public FightDtoGet PutFighter([FromBody] FightDtoPut fighter, int id) => fightService.UpdateFight(fighter, id).Result;
 
         [HttpDelete("{id}")]
         public bool DeleteFighter(int id) => fightService.DeleteFight(id).Result;

@@ -10,7 +10,6 @@ namespace Domain.Mappers
         {
             CreateMap<Fight, FightDto>()
             .ReverseMap();
-
         }
     }
     

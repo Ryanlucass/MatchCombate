@@ -7,10 +7,10 @@ namespace Domain.Interfaces
 {
     public interface IFightService
     {
-        public Task<FightDto> CreateFight(FightDto fight);
-        public Task<FightDto> UpdateFight(FightDto fighterDto);
-        public Task<List<FightDto>> SelectAllFight(DateTime? dates);
-        public Task<FightDto> SelectFight(int id);
+        public Task<FightDtoGet> CreateFight(FightDto fight);
+        public Task<FightDtoGet> UpdateFight(FightDtoPut fighterDto, int id);
+        public Task<List<FightDtoGet>> SelectAllFight(DateTime? dates);
+        public Task<FightDtoGet> SelectFight(int id);
         public Task<bool> DeleteFight(int id);
     }
 }
