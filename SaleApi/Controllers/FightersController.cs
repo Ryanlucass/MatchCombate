@@ -21,6 +21,7 @@ namespace MatchCombate.Controllers
         [SwaggerResponse(400, "Error to create a fighter, verify your body request")]
         public FighterDtoGet CreateLutador([FromBody] FighterDto fighter) => matchLutas.CreateFighter(fighter).Result;
 
+        //todo Ajeitar variável do nome
         [HttpGet]
         public List<FighterDtoGet> GetFighters([FromQuery] int? weightClass) => matchLutas.SelectFighter(weightClass).Result;
 
@@ -28,7 +29,7 @@ namespace MatchCombate.Controllers
         public FighterDtoGet GetFighter(int id) => matchLutas.SelectFighterById(id).Result;
 
         [HttpPatch("{id}")]
-        public FighterDtoGet PatchFighter(FighterDto fighter, int id) => matchLutas.UpdateFighter(fighter, id).Result;
+        public FighterDtoGet PatchFighter(FighterDtoPatch fighter, int id) => matchLutas.UpdateFighter(fighter, id).Result;
 
         [HttpDelete("{id}")]
         public bool DeleteFighter(int id) => matchLutas.DeleteFighter(id).Result;

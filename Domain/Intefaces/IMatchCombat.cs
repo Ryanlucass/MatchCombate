@@ -8,7 +8,7 @@ namespace Domain.Interfaces
     {
         public Task<FighterDtoGet> CreateFighter(FighterDto fighterDto);
         public Task<List<FighterDtoGet>> SelectFighter(int? weightClass);
-        public Task<FighterDtoGet> UpdateFighter(FighterDto fighterDto, int id);
+        public Task<FighterDtoGet> UpdateFighter(FighterDtoPatch fighterDto, int id);
         public Task<FighterDtoGet> SelectFighterById(int id);
         public Task<bool> DeleteFighter(int id);
         

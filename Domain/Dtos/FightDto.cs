@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Domain.Dtos.FighterDtos;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
@@ -14,6 +16,7 @@ namespace Domain.Dtos
         [Required(ErrorMessageResourceName = "StringLenght")]
         [MinLength(5)]
         public string Box { get; set; }
+        public IEnumerable<FighterDtoGet> Fights { get; set; }
     }
     public class FightDtoGet : FightDto
     {

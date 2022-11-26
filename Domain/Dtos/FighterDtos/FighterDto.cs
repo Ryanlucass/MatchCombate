@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Dtos.FighterDtos
@@ -24,5 +25,17 @@ namespace Domain.Dtos.FighterDtos
     {
         [Required]
         public int Id { get; set; }
+    }
+    public class FighterDtoPatch
+    {
+        public DateTime CreateAt { get; set; }
+        [MinLength(5)]
+        public string Name { get; set; }
+        [MinLength(5)]
+        public string NickName { get; set; }
+        [MinLength(11)]
+        public string Cpf { get; set; }
+        public int WeightClass { get; set; }
+        public int FightId { get; set; }
     }
 }

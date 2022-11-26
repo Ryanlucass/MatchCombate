@@ -41,7 +41,7 @@ namespace Service
             return _mapper.Map<FighterDtoGet>(result);
         }
 
-        public async Task<FighterDtoGet> UpdateFighter(FighterDto fighterDto, int id)
+        public async Task<FighterDtoGet> UpdateFighter(FighterDtoPatch fighterDto, int id)
         {
             var fightExist = _fighterRepository.GetByIdAsync(id).Result;
             if (fightExist == null){throw new Exception($"Id: {id} não existe");}
@@ -49,9 +49,9 @@ namespace Service
             //update do item
             fightExist.Name = fighterDto.Name ?? fightExist.Name;
             fightExist.Cpf = fighterDto.Cpf ?? fightExist.Cpf;
-            fightExist.NickName = fighterDto.Cpf ?? fightExist.Cpf;
+            fightExist.NickName = fighterDto.NickName ?? fightExist.NickName;
             fightExist.WeightClass = fighterDto.WeightClass != 0 ? fighterDto.WeightClass : fightExist.WeightClass;
-            fightExist.FightId = fighterDto.FightId != null ? fighterDto.FightId : fightExist.FightId;
+            fightExist.FightId = fighterDto.FightId != 0 ? fighterDto.FightId : fightExist.FightId;
             fightExist.CreateAt = fighterDto.CreateAt != DateTime.MinValue ? fighterDto.CreateAt.Date : fightExist.CreateAt;
 
             var fighterUpdate = await _fighterRepository.UpdateAsync(fightExist);

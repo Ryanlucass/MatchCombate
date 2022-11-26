@@ -23,8 +23,9 @@ namespace Domain.Model
         [StringLength(23)]
         [Column("Octogono")]
         public string Box { get; set; }
-
         //Relacionamento
         public List<Fighter> Fighters { get; set; }
     }
 }
+
+
