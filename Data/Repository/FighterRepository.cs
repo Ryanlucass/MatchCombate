@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 
 namespace Data.Repository
@@ -17,17 +18,17 @@ namespace Data.Repository
         {
             _db = db;
         }
-        public async Task<Fighter> CreateAsync(Fighter judge)
+        public async Task<Fighter> CreateAsync(Fighter item)
         {
             try
             {
-                _db.Add(judge);
+                _db.Add(item);
                 await _db.SaveChangesAsync();
-                return judge;
+                return item;
             }
             catch (Exception ex)
             {
-                throw new Exception($"Problema ao criar {judge.Id}", ex);
+                throw new Exception($"Problema ao criar {item.Id}", ex);
             }
         }
 
@@ -36,6 +37,7 @@ namespace Data.Repository
             try
             {
                 var fighter = await GetByIdAsync(id);
+                if(fighter == null ) { return false;}
                 _db.Remove(fighter);
                 await _db.SaveChangesAsync();
                 return true;

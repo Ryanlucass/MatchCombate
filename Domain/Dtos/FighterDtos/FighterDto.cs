@@ -6,17 +6,20 @@ namespace Domain.Dtos.FighterDtos
 {
     public class FighterDto
     {
-        public DateTime CreateAt { get; set; }
         [Required]
-        [MinLength(5)]
+        [MinLength(2)]
+        [MaxLength(30)]
         public string Name { get; set; }
         [Required]
-        [MinLength(5)]
+        [MinLength(2)]
+        [MaxLength(20)]
         public string NickName { get; set; }
         [Required]
         [MinLength(11)]
+        [MaxLength(11)]
         public string Cpf { get; set; }
         [Required]
+        [Range(12.3, 270, ErrorMessage = "Insira um peso válido")]
         public int WeightClass { get; set; }
         public int? FightId { get; set; }
     }
@@ -25,15 +28,18 @@ namespace Domain.Dtos.FighterDtos
     {
         [Required]
         public int Id { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
     public class FighterDtoPatch
     {
-        public DateTime CreateAt { get; set; }
-        [MinLength(5)]
+        [MinLength(2, ErrorMessage ="Insira um nome maior que 2 caracteres")]
+        [MaxLength(30)]
         public string Name { get; set; }
-        [MinLength(5)]
+        [MinLength(5, ErrorMessage = "Insirua um apelido de no mínimo 2 caracteres")]
+        [MaxLength(20)]
         public string NickName { get; set; }
         [MinLength(11)]
+        [MaxLength(11)]
         public string Cpf { get; set; }
         public int WeightClass { get; set; }
         public int FightId { get; set; }

@@ -11,7 +11,9 @@ namespace Domain.Mappers
     {
         public MappingToFighter()
         {
-            CreateMap<FighterDto, Fighter>();
+            CreateMap<FighterDto, Fighter>()
+            .ForMember(x => x.CreateAt, map =>
+            map.MapFrom(x=> DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm")));
         }
     }
 }

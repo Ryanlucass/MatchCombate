@@ -1,7 +1,9 @@
-﻿using Domain.Dtos.FighterDtos;
+﻿using Data.Migrations;
+using Domain.Dtos.FighterDtos;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using System;
 using System.Collections.Generic;
 
 namespace MatchCombate.Controllers
@@ -21,7 +23,6 @@ namespace MatchCombate.Controllers
         [SwaggerResponse(400, "Error to create a fighter, verify your body request")]
         public FighterDtoGet CreateLutador([FromBody] FighterDto fighter) => matchLutas.CreateFighter(fighter).Result;
 
-        //todo Ajeitar variável do nome
         [HttpGet]
         public List<FighterDtoGet> GetFighters([FromQuery] int? weightClass) => matchLutas.SelectFighter(weightClass).Result;
 
@@ -34,4 +35,4 @@ namespace MatchCombate.Controllers
         [HttpDelete("{id}")]
         public bool DeleteFighter(int id) => matchLutas.DeleteFighter(id).Result;
     }
-}
+} 

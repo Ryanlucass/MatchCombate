@@ -26,7 +26,7 @@ namespace Service
         }
         public async Task<bool> DeleteFight(int id)
         {
-            if (id == 0) return false;
+            
             Fight fightResult = await _fightRepository.GetByIdAsync(id);
        
             return fightResult != null ? await _fightRepository.DeleteAsync(fightResult.Id) : false;

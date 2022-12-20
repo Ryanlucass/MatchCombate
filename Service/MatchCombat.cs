@@ -52,7 +52,6 @@ namespace Service
             fightExist.NickName = fighterDto.NickName ?? fightExist.NickName;
             fightExist.WeightClass = fighterDto.WeightClass != 0 ? fighterDto.WeightClass : fightExist.WeightClass;
             fightExist.FightId = fighterDto.FightId != 0 ? fighterDto.FightId : fightExist.FightId;
-            fightExist.CreateAt = fighterDto.CreateAt != DateTime.MinValue ? fighterDto.CreateAt.Date : fightExist.CreateAt;
 
             var fighterUpdate = await _fighterRepository.UpdateAsync(fightExist);
             return _mapper.Map<FighterDtoGet>(fighterUpdate);
