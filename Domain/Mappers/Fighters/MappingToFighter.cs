@@ -4,7 +4,7 @@ using Domain.Dtos.FighterDtos;
 using Domain.Model;
 using System;
 
-namespace Domain.Mappers
+namespace Domain.Mappers.Fighters
 {
 
     public class MappingToFighter : Profile
@@ -13,7 +13,9 @@ namespace Domain.Mappers
         {
             CreateMap<FighterDto, Fighter>()
             .ForMember(x => x.CreateAt, map =>
-            map.MapFrom(x=> DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm")));
+            map.MapFrom(x => DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm")))
+            .ForMember(x => x.FightId, map =>
+            map.MapFrom(x => x.FightId == 0 ? null : x.FightId));
         }
     }
 }

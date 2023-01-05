@@ -2,15 +2,16 @@
 using Domain.Dtos;
 using Domain.Model;
 
-namespace Domain.Mappers
+namespace Domain.Mappers.Fights
 {
     public class MappintToFightDto : Profile
     {
         public MappintToFightDto()
         {
-            CreateMap<Fight, FightDto>();
-            CreateMap<Fight, FightDtoGet>();
+            CreateMap<Fight, FightDtoGet>()
+            .ForMember(x=> x.Fights, map =>
+            map.MapFrom(x=> x.Fighters));
         }
     }
-    
+
 }

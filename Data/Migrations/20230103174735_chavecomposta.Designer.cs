@@ -3,14 +3,16 @@ using System;
 using Data.DbCotext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
     [DbContext(typeof(MatchCombateContext))]
-    partial class MatchCombateContextModelSnapshot : ModelSnapshot
+    [Migration("20230103174735_chavecomposta")]
+    partial class chavecomposta
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,7 +82,7 @@ namespace Data.Migrations
                         .HasColumnType("int")
                         .HasColumnName("Peso");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id", "Cpf");
 
                     b.HasIndex("FightId");
 

@@ -11,6 +11,5 @@ namespace Data.DbCotext
        
         public MatchCombateContext(DbContextOptions<MatchCombateContext> options) : base(options)
         {}
-
     }
 }
