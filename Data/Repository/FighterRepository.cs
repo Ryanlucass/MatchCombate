@@ -14,10 +14,8 @@ namespace Data.Repository
     {
         private readonly MatchCombateContext _db;
 
-        public FighterRepository(MatchCombateContext db)
-        {
-            _db = db;
-        }
+        public FighterRepository(MatchCombateContext db) => _db = db;
+
         public async Task<Fighter> CreateAsync(Fighter item)
         {
             try

@@ -8,8 +8,8 @@ namespace Domain.Model
     [Table("Lutador")]
     public class Fighter
     {
-        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         [Column("Id")]
         public int Id { get; set; }
         [Column("Criado_em")]
@@ -20,23 +20,18 @@ namespace Domain.Model
         public string Name { get; set; }
         [Column("Apelido")]
         [Required]
-        [MaxLength(20)]
-        [MinLength(4)]
+        [MaxLength(30)]
+        [MinLength(3)]
         public string NickName { get; set;}
         [Column("Cpf")]
-        [Required]
-        [MinLength(2)]
+        [MinLength(11)]
         [MaxLength(11)]
-
         public string Cpf { get; set; }
         [Column("Peso")]
         [Required]
-        [MaxLength(4)]
-        [MinLength(2)]
         public int WeightClass { get; set; }
         [Column("LutaId")]
         public int? FightId { get; set; }
-
         //Relacionamento
         public Fight Fight { get; set; }
 

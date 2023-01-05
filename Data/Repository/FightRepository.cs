@@ -14,11 +14,7 @@ namespace Data.Repository
     public class FightRepository : IFightRepository
     {
         private readonly MatchCombateContext _db;
-
-        public FightRepository(MatchCombateContext db)
-        {
-            _db = db;
-        }
+        public FightRepository(MatchCombateContext db)  => _db = db;
 
         public async Task<Fight> CreateAsync(Fight fight)
         {
@@ -26,7 +22,7 @@ namespace Data.Repository
             {
                 _db.Add(fight);
                 await _db.SaveChangesAsync();
-                return fight;
+                return await GetByIdAsync(fight.Id);
             }
             catch (Exception ex)
             {
@@ -40,6 +36,7 @@ namespace Data.Repository
             {
                 //TODO consertar delete [erro cascate]
                 var fight = await GetByIdAsync(id);
+                if(fight == null) { return false;}
                 _db.Remove(fight);
                 await _db.SaveChangesAsync();
                 return true;
@@ -50,14 +47,16 @@ namespace Data.Repository
             }
         }
 
-        public async Task<Fight> GetByIdAsync(int id)
-        {
+        public async Task<Fight> GetByIdAsync(int id) {
+            await _db.Fighters.ToListAsync<Fighter>();
             return await _db.Fight.FirstOrDefaultAsync(x => x.Id == id);
-            //var resultFight = await _db.Fight.Where(x => x.Id == id).Select(x=> x)
-            //return resultFight;
-        }
-
-        public async Task<List<Fight>> GetFightsAsync() => await _db.Fight.ToListAsync<Fight>();
+        } 
+            
+        public async Task<List<Fight>> GetFightsAsync()
+        {
+            await _db.Fighters.ToListAsync<Fighter>();
+            return await _db.Fight.ToListAsync<Fight>();
+        } 
 
         public async Task<Fight> UpdateAsync(Fight item)
         {

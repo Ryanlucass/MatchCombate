@@ -13,24 +13,18 @@ namespace Service
     {
         private readonly IMapper _mapper;
         private readonly IFightRepository _fightRepository;
-        public FightService(IFightRepository fightRepository, IMapper mapper)
+        public FightService(IFightRepository fightRepository,IMapper mapper)
         {
             _fightRepository = fightRepository;
             _mapper = mapper;
         }
-        public async Task<FightDtoGet> CreateFight(FightDto obj)
+        public async Task<FightDtoGet> CreateFight(FightDto item)
         {
-            Fight interfaceFight = _mapper.Map<Fight>(obj);
-            Fight fightResult = await _fightRepository.CreateAsync(interfaceFight);
-            return _mapper.Map<FightDtoGet>(fightResult);
+            Fight entitiesFight = _mapper.Map<Fight>(item);
+            Fight resultFight = await _fightRepository.CreateAsync(entitiesFight);
+            return _mapper.Map<FightDtoGet>(resultFight);
         }
-        public async Task<bool> DeleteFight(int id)
-        {
-            
-            Fight fightResult = await _fightRepository.GetByIdAsync(id);
-       
-            return fightResult != null ? await _fightRepository.DeleteAsync(fightResult.Id) : false;
-        }
+
         public async Task<List<FightDtoGet>> SelectAllFight(DateTime? date)
         {
             List<Fight> listFight = await _fightRepository.GetFightsAsync();
@@ -42,22 +36,21 @@ namespace Service
         public async Task<FightDtoGet> SelectFight(int id) 
         {
             var fightResult = await _fightRepository.GetByIdAsync(id);
-            if(fightResult == null) { throw new Exception($"Id não existe na base de dados: {id}"); }
             return _mapper.Map<FightDtoGet>(fightResult);
         }
-        public async Task<FightDtoGet> UpdateFight(FightDtoPut fighterDto, int id)
+        public async Task<FightDtoGet> UpdateFight(FightDtoPatch fighterDto, int id)
         {
             var fightExist = _fightRepository.GetByIdAsync(id).Result;
             if(fightExist == null) {throw new Exception($"Id: {id} não existe");}
 
-            //update item
             fightExist.Locale = fighterDto.Locale ?? fightExist.Locale;
-            fightExist.Box = fightExist.Box ?? fightExist.Box;
+            fightExist.Box = fighterDto.Box ?? fightExist.Box;
             fightExist.Date = fighterDto.Date != DateTime.MinValue ? fighterDto.Date : fightExist.Date;
  
             var fightUpdate = await _fightRepository.UpdateAsync(fightExist);
             return _mapper.Map<FightDtoGet>(fightUpdate);
 
         }
+        public async Task<bool> DeleteFight(int id) => await _fightRepository.DeleteAsync(id);
     }
 }

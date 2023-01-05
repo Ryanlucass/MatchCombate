@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Dtos.FighterDtos
@@ -8,15 +7,15 @@ namespace Domain.Dtos.FighterDtos
     {
         [Required]
         [MinLength(2)]
-        [MaxLength(30)]
+        [MaxLength(30, ErrorMessage = "O nome deve ter no máximo 30 caracteres")]
         public string Name { get; set; }
         [Required]
-        [MinLength(2)]
-        [MaxLength(20)]
+        [MinLength(2, ErrorMessage = "Insira um apelido de no mínimo 2 caracteres")]
+        [MaxLength(20, ErrorMessage = "O apelido deve ter no máximo 20 caracteres")]
         public string NickName { get; set; }
         [Required]
-        [MinLength(11)]
-        [MaxLength(11)]
+        [MinLength(11, ErrorMessage = "Insira um cpf válido")]
+        [MaxLength(11, ErrorMessage ="Insira um cpf válido")]
         public string Cpf { get; set; }
         [Required]
         [Range(12.3, 270, ErrorMessage = "Insira um peso válido")]

@@ -3,9 +3,9 @@ using System;
 
 namespace SaleApi.Controllers
 {
-    public class HelthController : Controller
+    [Route("api/[controller]")]
+    public class HelthController : ControllerBase
     {
-
         [HttpGet]
         public IActionResult Helth() => Ok(new { Testing = true, DateTime = DateTime.Now });
         
