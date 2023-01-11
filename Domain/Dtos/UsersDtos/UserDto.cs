@@ -25,7 +25,6 @@ namespace Domain.Dtos.UsersDtos
     public class UserDtoGet : UserDto
     {
         public Guid Id { get; set; }
-        public List<Fighter> Fighters { get; set; }
     }
 
     public class UserDtoPatch

@@ -29,7 +29,7 @@ namespace Domain.Entities
         [Required]
         [MinLength(11)]
         [MaxLength(11)]
-        [Column("Phone")]
+        [Column("Telefone")]
         public string Phone { get; set; }
         //Relacionamentos
         public List<Fighter> Fighters { get; set; }

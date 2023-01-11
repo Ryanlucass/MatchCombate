@@ -24,7 +24,7 @@ namespace MatchCombatApi.Controllers
         [HttpGet]
         [SwaggerResponse(200, "Sucess")]
         [SwaggerResponse(204, "No content [User]")]
-        public List<UserDtoGet> GetUser() => _userService.GetUseraAsync().Result;
+        public List<UserDtoGet> GetUser() => _userService.GetUserAsync().Result;
         [HttpGet("{id}")]
         [SwaggerResponse(200, "Sucess")]
         [SwaggerResponse(204, "No content [User]")]

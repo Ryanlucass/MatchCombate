@@ -14,6 +14,6 @@ namespace Domain.Intefaces
         Task<UserDtoGet> UpdateAsync(Guid id, UserDtoPatch user);
         Task<bool> DeleteAsync(Guid id);
         Task<UserDtoGet> GetByIdAsync(Guid id);
-        Task<List<UserDtoGet>> GetUseraAsync();
+        Task<List<UserDtoGet>> GetUserAsync();
     }
 }
