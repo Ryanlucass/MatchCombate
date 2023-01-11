@@ -1,5 +1,6 @@
 using Data.DbCotext;
 using Data.Repository;
+using Domain.Intefaces;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,9 +30,11 @@ namespace MatchCombate
             ///Services 
             services.AddTransient<IMatchCombat, MatchCombat>();
             services.AddTransient<IFightService, FightService>();
+            services.AddTransient<IUserService, UserService>();
             ///Repositorys
             services.AddTransient<IFighterRepository, FighterRepository>();
             services.AddTransient<IFightRepository, FightRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
             //AutoMapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             //Data

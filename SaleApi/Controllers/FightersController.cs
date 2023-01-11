@@ -21,7 +21,7 @@ namespace MatchCombate.Controllers
         [HttpPost]
         [SwaggerResponse(201, "Fighter create")]
         [SwaggerResponse(400, "Error to create a fighter, verify your body request")]
-        public FighterDtoGet CreateLutador([FromBody] FighterDto fighter) => matchLutas.CreateFighter(fighter).Result;
+        public FighterDtoGet CreateFighter([FromBody] FighterDto fighter) => matchLutas.CreateFighter(fighter).Result;
 
         [HttpGet]
         public List<FighterDtoGet> GetFighters([FromQuery] int? weightClass) => matchLutas.SelectFighter(weightClass).Result;

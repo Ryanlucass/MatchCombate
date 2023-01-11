@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Domain.Entities;
+using Newtonsoft.Json;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -30,10 +31,13 @@ namespace Domain.Model
         [Column("Peso")]
         [Required]
         public int WeightClass { get; set; }
+        //Relacionamento
         [Column("LutaId")]
         public int? FightId { get; set; }
-        //Relacionamento
+        [Column("UsuarioId")]
+        public Guid UserId { get; set; }
         public Fight Fight { get; set; }
+        public User User { get; set; }
 
     }
 }

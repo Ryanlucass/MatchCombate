@@ -7,6 +7,7 @@ using System.Collections.Generic;
 namespace MatchCombate.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class FightsController : ControllerBase
     {
         private readonly IFightService fightService;
