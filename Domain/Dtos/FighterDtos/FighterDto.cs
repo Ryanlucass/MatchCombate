@@ -21,6 +21,7 @@ namespace Domain.Dtos.FighterDtos
         [Range(12.3, 270, ErrorMessage = "Insira um peso válido")]
         public int WeightClass { get; set; }
         public int? FightId { get; set; }
+        public Guid UserId { get; set; }
     }
 
     public class FighterDtoGet : FighterDto

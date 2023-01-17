@@ -16,7 +16,7 @@ namespace Domain.Entities
         [Required]
         [Column("Codigo")]
         [MinLength(11)]
-        [MaxLength(11)]
+        [MaxLength(14)]
         public string CodeId { get; set; }
         [Required]
         [MinLength(12)]

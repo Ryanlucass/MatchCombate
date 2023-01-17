@@ -10,7 +10,7 @@ namespace Domain.Dtos.UsersDtos
     {
         [Required]
         [MinLength(11)]
-        [MaxLength(11)]
+        [MaxLength(14)]
         public string CodeId { get; set; }
         [Required]
         [MinLength(12)]
@@ -38,7 +38,7 @@ namespace Domain.Dtos.UsersDtos
         [MaxLength(11)]
         public string Phone { get; set; }
         [MinLength(11)]
-        [MaxLength(11)]
+        [MaxLength(14)]
         public string  CodeId { get; set; }
 
     }
