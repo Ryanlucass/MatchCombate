@@ -14,6 +14,7 @@ namespace Domain.Intefaces
         Task<User> UpdateAsync(User item);
         Task<bool> DeleteAsync(Guid id);
         Task<User> GetByIdAsync(Guid id);
+        Task<User> GetByEmailAsync(string email);
         Task<List<User>> GetUseraAsync();
     }
 }

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Domain.Dtos.UsersDtos;
+using Domain.Dtos;
 using Domain.Entities;
 using Domain.Intefaces;
 using System;
@@ -32,6 +32,8 @@ namespace Service
         {
             throw new NotImplementedException();
         }
+
+        public async Task<UserDtoGet> GetByEmailAsync(string email) => _mapper.Map<UserDtoGet>(await _userRepository.GetByEmailAsync(email));
 
         public async Task<UserDtoGet> GetByIdAsync(Guid id) => _mapper.Map<UserDtoGet>(await _userRepository.GetByIdAsync(id));
         public async Task<List<UserDtoGet>> GetUserAsync()

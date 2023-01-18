@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Domain.Dtos.UsersDtos;
+using Domain.Dtos;
 using Domain.Entities;
 
 namespace Domain.Mappers

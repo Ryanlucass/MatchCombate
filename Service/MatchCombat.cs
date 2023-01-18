@@ -1,10 +1,16 @@
 ﻿using AutoMapper;
-using Domain.Dtos.FighterDtos;
+using Data.Repository;
+using Domain.Dtos;
+using Domain.Exptions;
+using Domain.Intefaces;
 using Domain.Interfaces;
 using Domain.Model;
+using Pomelo.EntityFrameworkCore.MySql.Metadata.Internal;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 
 namespace Service
@@ -12,15 +18,19 @@ namespace Service
     public class MatchCombat : IMatchCombat
     {
         private readonly IFighterRepository _fighterRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        public MatchCombat(IFighterRepository repository, IMapper mapper)
+        public MatchCombat(IFighterRepository repository, IMapper mapper, IUserRepository userRepository)
         {
             _fighterRepository = repository;
             _mapper = mapper;
+            _userRepository = userRepository;
         }
 
         public async Task<FighterDtoGet> CreateFighter(FighterDto item)
         {
+            Validator(item);
+            if(_userRepository.GetByIdAsync(item.UserId).Result == null){throw new UserExecption("User_c", "User null");}
             Fighter fighter = _mapper.Map<Fighter>(item);
             Fighter resultFighter = await _fighterRepository.CreateAsync(fighter);
 
@@ -59,5 +69,11 @@ namespace Service
 
         public async Task<bool> DeleteFighter(int id) => await _fighterRepository.DeleteAsync(id);
 
+
+
+        private void Validator (FighterDto item)
+        {
+            if (item.UserId.Equals(Guid.Empty)){throw new UserExecption("User_validator", "Userid default value");}
+        }
     }
 }

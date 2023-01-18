@@ -1,4 +1,4 @@
-﻿using Domain.Dtos.UsersDtos;
+﻿using Domain.Dtos;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -14,6 +14,7 @@ namespace Domain.Intefaces
         Task<UserDtoGet> UpdateAsync(Guid id, UserDtoPatch user);
         Task<bool> DeleteAsync(Guid id);
         Task<UserDtoGet> GetByIdAsync(Guid id);
+        Task<UserDtoGet> GetByEmailAsync(string email);
         Task<List<UserDtoGet>> GetUserAsync();
     }
 }

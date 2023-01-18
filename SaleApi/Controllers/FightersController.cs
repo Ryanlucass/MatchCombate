@@ -1,5 +1,5 @@
 ﻿using Data.Migrations;
-using Domain.Dtos.FighterDtos;
+using Domain.Dtos;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

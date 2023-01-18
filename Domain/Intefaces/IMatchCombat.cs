@@ -1,4 +1,4 @@
-﻿using Domain.Dtos.FighterDtos;
+﻿using Domain.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

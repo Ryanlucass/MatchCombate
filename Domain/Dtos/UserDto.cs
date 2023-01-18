@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Dtos.UsersDtos
+namespace Domain.Dtos
 {
     public class UserDto
     {
@@ -39,7 +39,16 @@ namespace Domain.Dtos.UsersDtos
         public string Phone { get; set; }
         [MinLength(11)]
         [MaxLength(14)]
-        public string  CodeId { get; set; }
+        public string CodeId { get; set; }
+    }
 
+    public class loginDto
+    {
+        [Required]
+        public string Email { get; set; }
+        [Required]
+        [MinLength(11)]
+        [MaxLength(11)]
+        public string CodeId { get; set; }
     }
 }

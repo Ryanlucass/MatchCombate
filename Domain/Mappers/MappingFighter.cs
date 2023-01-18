@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Domain.Dtos.FighterDtos;
+using Domain.Dtos;
 using Domain.Model;
 using System;
 

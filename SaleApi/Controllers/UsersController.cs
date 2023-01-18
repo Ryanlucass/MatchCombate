@@ -1,4 +1,4 @@
-﻿using Domain.Dtos.UsersDtos;
+﻿using Domain.Dtos;
 using Domain.Intefaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,10 +25,11 @@ namespace MatchCombatApi.Controllers
         [SwaggerResponse(200, "Sucess")]
         [SwaggerResponse(204, "No content [User]")]
         public List<UserDtoGet> GetUser() => _userService.GetUserAsync().Result;
-        [HttpGet("{id}")]
+
+        [HttpPost("/GetUser")]
         [SwaggerResponse(200, "Sucess")]
         [SwaggerResponse(204, "No content [User]")]
-        public UserDtoGet GetUser(Guid id) => _userService.GetByIdAsync(id).Result;
+        public UserDtoGet GetUser([FromBody] loginDto user ) => _userService.GetByEmailAsync(user.Email).Result;
 
         [HttpPatch("{id}")]
         public UserDtoGet PatchUser(Guid id, [FromBody] UserDtoPatch user) => _userService.UpdateAsync(id, user).Result;
