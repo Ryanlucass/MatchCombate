@@ -8,8 +8,9 @@ namespace Domain.Mappers
     {
         public MappingToUser()
         {
-            CreateMap<UserDto, User>();
             CreateMap<User, UserDtoGet>()
+            .ReverseMap();
+            CreateMap<User, UserDto>()
             .ReverseMap();
         }
     }

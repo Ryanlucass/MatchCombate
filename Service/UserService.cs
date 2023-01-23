@@ -21,11 +21,11 @@ namespace Service
             _userRepository = userRepository;
         }
 
-        public async Task<UserDtoGet> CreateAsync(UserDto user)
+        public async Task<UserDto> CreateAsync(UserDto user)
         {
             var entititiesUser = _mapper.Map<User>(user);
             var resultUser = await _userRepository.CreateAsync(entititiesUser);
-            return _mapper.Map<UserDtoGet>(resultUser);
+            return _mapper.Map<UserDto>(resultUser);
         }
 
         public Task<bool> DeleteAsync(Guid id)
@@ -33,16 +33,16 @@ namespace Service
             throw new NotImplementedException();
         }
 
-        public async Task<UserDtoGet> GetByEmailAsync(string email) => _mapper.Map<UserDtoGet>(await _userRepository.GetByEmailAsync(email));
+        public async Task<UserDto> GetByEmailAsync(string email) => _mapper.Map<UserDto>(await _userRepository.GetByEmailAsync(email));
 
-        public async Task<UserDtoGet> GetByIdAsync(Guid id) => _mapper.Map<UserDtoGet>(await _userRepository.GetByIdAsync(id));
-        public async Task<List<UserDtoGet>> GetUserAsync()
+        public async Task<UserDto> GetByIdAsync(Guid id) => _mapper.Map<UserDto>(await _userRepository.GetByIdAsync(id));
+        public async Task<List<UserDto>> GetUserAsync()
         {
             var listUser = await _userRepository.GetUseraAsync();
-            return listUser.Select(x => _mapper.Map<UserDtoGet>(x)).ToList();
+            return listUser.Select(x => _mapper.Map<UserDto>(x)).ToList();
         }
 
-        public Task<UserDtoGet> UpdateAsync(Guid id, UserDtoPatch user)
+        public Task<UserDto> UpdateAsync(Guid id, UserDtoPatch user)
         {
             throw new NotImplementedException();
         }

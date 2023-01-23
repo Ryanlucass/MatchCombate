@@ -10,11 +10,11 @@ namespace Domain.Intefaces
 {
     public interface IUserService
     {
-        Task<UserDtoGet> CreateAsync(UserDto user);
-        Task<UserDtoGet> UpdateAsync(Guid id, UserDtoPatch user);
+        Task<UserDto> CreateAsync(UserDto user);
+        Task<UserDto> UpdateAsync(Guid id, UserDtoPatch user);
         Task<bool> DeleteAsync(Guid id);
-        Task<UserDtoGet> GetByIdAsync(Guid id);
-        Task<UserDtoGet> GetByEmailAsync(string email);
-        Task<List<UserDtoGet>> GetUserAsync();
+        Task<UserDto> GetByIdAsync(Guid id);
+        Task<UserDto> GetByEmailAsync(string email);
+        Task<List<UserDto>> GetUserAsync();
     }
 }
