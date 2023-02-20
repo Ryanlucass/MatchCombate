@@ -24,12 +24,12 @@ namespace MatchCombate.Controllers
         public List<FightDtoGet> GetFighters([FromQuery] DateTime? dateToday) => fightService.SelectAllFight(dateToday).Result;
 
         [HttpGet("{id}")]
-        public FightDtoGet GetFighter(int id) => fightService.SelectFight(id).Result;
+        public FightDtoGet GetFighter(Guid id) => fightService.SelectFight(id).Result;
 
         [HttpPatch("{id}")]
-        public FightDtoGet PutFighter([FromBody] FightDtoPatch fighter, int id) => fightService.UpdateFight(fighter, id).Result;
+        public FightDtoGet PutFighter([FromBody] FightDtoPatch fighter, Guid id) => fightService.UpdateFight(fighter, id).Result;
 
         [HttpDelete("{id}")]
-        public bool DeleteFighter(int id) => fightService.DeleteFight(id).Result;
+        public bool DeleteFighter(Guid id) => fightService.DeleteFight(id).Result;
     }
 }

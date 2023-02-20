@@ -7,11 +7,11 @@ namespace Domain.Interfaces
 {
     public interface IMatchCombat
     {
-        public Task<FighterDtoGet> CreateFighter(FighterDto fighterDto);
-        public Task<List<FighterDtoGet>> SelectFighter(int? weightClass);
-        public Task<FighterDtoGet> UpdateFighter(FighterDtoPatch fighterDto, int id);
-        public Task<FighterDtoGet> SelectFighterById(int id);
-        public Task<bool> DeleteFighter(int id);
+        public Task<FighterResult> CreateFighter(FighterCreate fighterDto);
+        public Task<List<FighterResult>> SelectFighter(int? weightClass);
+        public Task<FighterResult> UpdateFighter(FighterDtoPatch fighterDto, Guid id);
+        public Task<FighterResult> SelectFighterById(Guid id);
+        public Task<bool> DeleteFighter(Guid id);
         
     }
 }

@@ -22,7 +22,7 @@ namespace Data.Repository
             {
                 _db.Add(fight);
                 await _db.SaveChangesAsync();
-                return await GetByIdAsync(fight.Id);
+                return await GetByIdAsync(fight.Uid);
             }
             catch (Exception ex)
             {
@@ -30,7 +30,7 @@ namespace Data.Repository
             }
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
             try
             {
@@ -47,9 +47,9 @@ namespace Data.Repository
             }
         }
 
-        public async Task<Fight> GetByIdAsync(int id) {
+        public async Task<Fight> GetByIdAsync(Guid id) {
             await _db.Fighters.ToListAsync<Fighter>();
-            return await _db.Fight.FirstOrDefaultAsync(x => x.Id == id);
+            return await _db.Fight.FirstOrDefaultAsync(x => x.Uid == id);
         } 
             
         public async Task<List<Fight>> GetFightsAsync()
@@ -64,7 +64,7 @@ namespace Data.Repository
             {
                 _db.Update(item);
                 await _db.SaveChangesAsync();
-                return GetByIdAsync(item.Id).Result;
+                return GetByIdAsync(item.Uid).Result;
             }
             catch (Exception ex)
             {

@@ -26,11 +26,11 @@ namespace Data.Repository
             }
             catch (Exception ex)
             {
-                throw new Exception($"Problema ao criar {item.Id}", ex);
+                throw new Exception($"Problema ao criar {item.Uid}", ex);
             }
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace Data.Repository
             }
         }
 
-        public async Task<Fighter> GetByIdAsync(int id) => _db.Fighters.FirstOrDefault(x => x.Id == id);
+        public async Task<Fighter> GetByIdAsync(Guid id) => _db.Fighters.FirstOrDefault(x => x.Uid == id);
         
         public async Task<List<Fighter>> GetFighteraAsync() => await _db.Fighters.ToListAsync<Fighter>();
  
@@ -63,7 +63,7 @@ namespace Data.Repository
                 _db.Update(item);
                 await _db.SaveChangesAsync();
 
-                return GetByIdAsync(item.Id).Result;
+                return GetByIdAsync(item.Uid).Result;
             }
             catch (Exception ex)
             {

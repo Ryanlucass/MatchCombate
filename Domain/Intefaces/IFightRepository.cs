@@ -10,8 +10,8 @@ namespace Domain.Interfaces
     {
         Task<Fight> CreateAsync(Fight judge);
         Task<Fight> UpdateAsync(Fight item);
-        Task<bool> DeleteAsync(int id);
-        Task<Fight> GetByIdAsync(int id);
+        Task<bool> DeleteAsync(Guid id);
+        Task<Fight> GetByIdAsync(Guid id);
         Task<List<Fight>> GetFightsAsync();
     }
 }

@@ -10,17 +10,11 @@ namespace Domain.Mappers
     {
         public MappingFighter()
         {
-            // FighterDto => Fighter
-            CreateMap<FighterDto, Fighter>()
-            .ForMember(x => x.CreateAt, map =>
-            map.MapFrom(x => DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm")))
-            .ForMember(x => x.FightId, map =>
-            map.MapFrom(x => x.FightId == 0 ? null : x.FightId));
+            CreateMap<FighterCreate, Fighter>() 
+            .ReverseMap();
 
-            // Fighter => FighterDtoGet
-            CreateMap<Fighter, FighterDtoGet>()
-            .ForMember(x => x.CreatedAt, map =>
-            map.MapFrom(x => x.CreateAt.Value));
+            CreateMap<Fighter, FighterResult>()
+            .ReverseMap();
         }
     }
 }

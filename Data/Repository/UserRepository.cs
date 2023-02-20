@@ -38,7 +38,8 @@ namespace Data.Repository
 
         public async Task<User> GetByEmailAsync(string email) => await _db.User.FirstOrDefaultAsync(x => x.Email.Equals(email));
 
-        public async Task<User> GetByIdAsync(Guid id) => await _db.User.FirstOrDefaultAsync(x => x.Id == id);
+        public async Task<User> GetByIdAsync(Guid id) => 
+            await _db.User.FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task<List<User>> GetUseraAsync() => await _db.User.ToListAsync<User>();
 

@@ -31,7 +31,5 @@ namespace Domain.Entities
         [MaxLength(11)]
         [Column("Telefone")]
         public string Phone { get; set; }
-        //Relacionamentos
-        public List<Fighter> Fighters { get; set; }
     }
 }

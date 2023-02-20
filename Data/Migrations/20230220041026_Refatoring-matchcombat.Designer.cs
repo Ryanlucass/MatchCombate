@@ -3,14 +3,16 @@ using System;
 using Data.DbCotext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
     [DbContext(typeof(MatchCombateContext))]
-    partial class MatchCombateContextModelSnapshot : ModelSnapshot
+    [Migration("20230220041026_Refatoring-matchcombat")]
+    partial class Refatoringmatchcombat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

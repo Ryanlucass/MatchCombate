@@ -33,12 +33,12 @@ namespace Service
                 listFight.Select(x => _mapper.Map<FightDtoGet>(x)).ToList() :
                 listFight.Where(x => x.Date == date).Select(x => _mapper.Map<FightDtoGet>(x)).ToList();
         }
-        public async Task<FightDtoGet> SelectFight(int id) 
+        public async Task<FightDtoGet> SelectFight(Guid id) 
         {
             var fightResult = await _fightRepository.GetByIdAsync(id);
             return _mapper.Map<FightDtoGet>(fightResult);
         }
-        public async Task<FightDtoGet> UpdateFight(FightDtoPatch fighterDto, int id)
+        public async Task<FightDtoGet> UpdateFight(FightDtoPatch fighterDto, Guid id)
         {
             var fightExist = _fightRepository.GetByIdAsync(id).Result;
             if(fightExist == null) {throw new Exception($"Id: {id} não existe");}
@@ -51,6 +51,6 @@ namespace Service
             return _mapper.Map<FightDtoGet>(fightUpdate);
 
         }
-        public async Task<bool> DeleteFight(int id) => await _fightRepository.DeleteAsync(id);
+        public async Task<bool> DeleteFight(Guid id) => await _fightRepository.DeleteAsync(id);
     }
 }

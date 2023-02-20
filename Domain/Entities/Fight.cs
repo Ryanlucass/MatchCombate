@@ -11,20 +11,15 @@ namespace Domain.Model
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("Id")]
-        public int Id { get; set; }
+        public Guid Uid { get; set; }
         [Required]
-        [Column("Data")]
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
         [Required]
         [StringLength(50)]
-        [Column("Local")]
         public string Locale { get; set; }
         [StringLength(23)]
-        [Column("Octogono")]
         public string Box { get; set; }
-        //Relacionamento
-        public List<Fighter> Fighters { get; set; }
+
     }
 }
 

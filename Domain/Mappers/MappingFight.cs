@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Dtos;
 using Domain.Model;
+using System;
 
 namespace Domain.Mappers
 {
@@ -8,17 +9,10 @@ namespace Domain.Mappers
     {
         public MappingFight()
         {
-            //FightDto => Fight
+            //FightCreate => Fight
             CreateMap<FightDto, Fight>()
-            .ForMember(x => x.Date, map =>
-            map.MapFrom(x => x.Date.ToString("dddd, dd MMMM yyyy HH:mm")))
             .ReverseMap();
-
-            //Fight => FightDtoGet
-            CreateMap<Fight, FightDtoGet>()
-            .ForMember(x => x.Fights, map =>
-            map.MapFrom(x => x.Fighters));
-
+            
         }
     }
 }

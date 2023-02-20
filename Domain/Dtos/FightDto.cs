@@ -22,7 +22,7 @@ namespace Domain.Dtos
     {
         [Required]
         public int Id { get; set; }
-        public IEnumerable<FighterDtoGet> Fights { get; set; }
+        public IEnumerable<FighterResult> Fights { get; set; }
     }
     public class FightDtoPatch
     {
