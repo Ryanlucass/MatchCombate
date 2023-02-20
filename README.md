@@ -16,6 +16,11 @@ marcias
  <img src="https://img.shields.io/github/watchers/Ryanlucass/MoviesApi?style=social" target="-blank">
 </div>
 
+## Novidades 📰
+ - Foi refeita toda estrutura da api para simplicar os resultados das buscas, agora a requisição retorna uma chave guide que futuramente será feita a autenticação do usuário, somado com uma conta admin.
+
+ 
+ 
 ## 🔍Qual o Objetivo ?
 ---
 O objetivo da api será a organização de eventos envolvendo combates de diferentes artes marcias, criando chaves e controles de lutas. 
