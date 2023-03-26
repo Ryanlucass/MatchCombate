@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Service
@@ -20,6 +21,7 @@ namespace Service
         private readonly IFighterRepository _fighterRepository;
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
+
         public MatchCombat(IFighterRepository repository, IMapper mapper, IUserRepository userRepository)
         {
             _fighterRepository = repository;
@@ -28,9 +30,9 @@ namespace Service
         }
 
         public async Task<FighterResult> CreateFighter(FighterCreate item)
-        {
+        {    
             _ = string.IsNullOrEmpty(item.NickName) ? item.NickName = $"nick-{item?.Name.Split(' ')[0]}" : item.NickName;
-  
+
             Validation( await _fighterRepository.GetByCodeIdAsync(item?.CodeId) != null, "Fighter Already exist!");
 
             Fighter fighter = _mapper.Map<Fighter>(item);
@@ -39,9 +41,9 @@ namespace Service
             return _mapper.Map<FighterResult>(resultFighter);
         }
 
-        public async Task<List<FighterResult>> SelectFighter( int? weightClass)
+        public async Task<List<FighterResult>> SelectFighter(int? weightClass, int skip, int take)
         { 
-            List<Fighter> listFight = await _fighterRepository.GetFighteraAsync();
+            List<Fighter> listFight = await _fighterRepository.GetFighteraAsync(skip, take);
             return weightClass >= 44.35 ?
                 listFight.Where(x => x.WeightClass == weightClass).Select(x => _mapper.Map<FighterResult>(x)).ToList() :
                 listFight.Select(x => _mapper.Map<FighterResult>(x)).ToList();
@@ -71,6 +73,12 @@ namespace Service
 
         public async Task<bool> DeleteFighter(Guid id) => await _fighterRepository.DeleteAsync(id);
 
-
+        private void Validation( bool value,string msg)
+        {
+            if (value)
+            {
+                throw new Exception(msg);
+            }
+        }
     }
 }

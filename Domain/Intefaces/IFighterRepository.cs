@@ -12,7 +12,8 @@ namespace Domain.Interfaces
         Task<Fighter> UpdateAsync(Fighter fighter);
         Task<bool> DeleteAsync(Guid id);
         Task<Fighter> GetByIdAsync(Guid id);
-        Task<List<Fighter>> GetFighteraAsync();
+        Task<Fighter> GetByCodeIdAsync(string codeId);
+        Task<List<Fighter>> GetFighteraAsync(int skip, int take);
     }
 }
 

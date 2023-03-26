@@ -23,7 +23,10 @@ namespace MatchCombate.Controllers
         public FighterResult CreateFighter([FromBody] FighterCreate fighter) => matchLutas.CreateFighter(fighter).Result;
 
         [HttpGet]
-        public List<FighterResult> GetFighters([FromQuery] int? weightClass) => matchLutas.SelectFighter(weightClass).Result;
+        public List<FighterResult> GetFighters([FromQuery] int? weightClass,[FromQuery] int skip = 0, [FromQuery] int take = 10) {
+        
+           return matchLutas.SelectFighter(weightClass, skip, take).Result;
+        } 
 
         [HttpGet("{id}")]
         public FighterResult GetFighter(Guid id) => matchLutas.SelectFighterById(id).Result;

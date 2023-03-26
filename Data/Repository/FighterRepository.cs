@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace Data.Repository
@@ -46,10 +47,23 @@ namespace Data.Repository
             }
         }
 
+        public Task<Fighter> GetByCodeIdAsync(string codeId) => _db.Fighters.FirstOrDefaultAsync(x => x.CodeId == codeId);
+
         public async Task<Fighter> GetByIdAsync(Guid id) => _db.Fighters.FirstOrDefault(x => x.Uid == id);
         
-        public async Task<List<Fighter>> GetFighteraAsync() => await _db.Fighters.ToListAsync<Fighter>();
- 
+        public async Task<List<Fighter>> GetFighteraAsync(int skip, int take)
+        {
+            var count = await _db.Fighters.CountAsync();
+            var fighters = await _db
+                .Fighters
+                .AsNoTracking()
+                .Skip(skip)
+                .Take(take)
+                .ToListAsync();
+            return fighters;
+            
+        }
+
         /// <summary>
         /// 
         /// </summary>

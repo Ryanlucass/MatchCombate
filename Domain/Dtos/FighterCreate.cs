@@ -32,7 +32,7 @@ namespace Domain.Dtos
         public string NickName { get; set; }
         public string CodeId { get; set; }
         public int WeightClass { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
     public class FighterDtoPatch
     {
