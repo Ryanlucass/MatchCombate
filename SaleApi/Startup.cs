@@ -1,5 +1,6 @@
 using Data.DbCotext;
 using Data.Repository;
+using Domain;
 using Domain.Intefaces;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -63,6 +64,8 @@ namespace MatchCombate
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseMiddleware(typeof(ErrorMiddleware));
 
             app.UseEndpoints(endpoints =>
             {

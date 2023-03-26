@@ -29,8 +29,10 @@ namespace Service
 
         public async Task<FighterResult> CreateFighter(FighterCreate item)
         {
-            _ = string.IsNullOrEmpty(item.NickName) ? item.NickName = $"nick-{item.Name}" : item.NickName;
+            _ = string.IsNullOrEmpty(item.NickName) ? item.NickName = $"nick-{item?.Name.Split(' ')[0]}" : item.NickName;
   
+            Validation( await _fighterRepository.GetByCodeIdAsync(item?.CodeId) != null, "Fighter Already exist!");
+
             Fighter fighter = _mapper.Map<Fighter>(item);
             Fighter resultFighter = await _fighterRepository.CreateAsync(fighter);
 
